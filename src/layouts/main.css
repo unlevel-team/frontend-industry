@@ -1,0 +1,25 @@
+
+.main {
+  /* padding-top: var(--layouts-header-height); */
+  /* margin-left: var(--layouts-sidebar-width); */
+  position: fixed;
+  top: var(--layouts-header-height);
+  left: var(--layouts-sidebar-width);
+  height: calc(100% - var(--layouts-header-height));
+  width: calc(100% - var(--layouts-sidebar-width));
+  overflow: auto;
+  background-color: var(--color-primary-background);
+  color: var(--color-primary-foreground);
+}
+
+.main h1 {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+.main > article {
+  min-width: 1000px;
+  margin-top: 0-75em;
+  margin-left: 0.75em;
+  font-family: sourceCodePro;
+}

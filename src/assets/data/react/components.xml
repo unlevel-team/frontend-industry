@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="components">
+    <title value="React components" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.
+      ]]>
+    </description>
+    <concept name="function-components">
+      <title value="Function Components" />
+      <docLink value="https://reactjs.org/docs/components-and-props.html" />
+      <description>
+        <![CDATA[
+          The simplest way to define a component is to write a JavaScript function
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="class-components">
+      <title value="Class Components" />
+      <docLink value="https://reactjs.org/docs/components-and-props.html" />
+      <description>
+        <![CDATA[
+          You can also use an ES6 class to define a component
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="rendering-components">
+      <title value="Rendering a component" />
+      <docLink value="https://reactjs.org/docs/components-and-props.html" />
+      <description>
+        <![CDATA[
+          When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. We call this object “props”.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+const element = <Welcome name="Sara" />;
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+        ]]>
+      </code>
+    </concept>
+
+    <concept name="composing-components">
+      <title value="Composing components" />
+      <docLink value="https://reactjs.org/docs/components-and-props.html" />
+      <description>
+        <![CDATA[
+          Components can refer to other components in their output. This lets us use the same component abstraction for any level of detail. A button, a form, a dialog, a screen: in React apps, all those are commonly expressed as components.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+function App() {
+  return (
+    <div>
+      <Welcome name="Sara" />
+      <Welcome name="Cahal" />
+      <Welcome name="Edite" />
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+        ]]>
+      </code>
+    </concept>
+
+  </topic>
+</data>

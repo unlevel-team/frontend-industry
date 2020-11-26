@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="conditional-rendering">
+    <title value="Vue conditional rendering" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Logic for conditiinal rendering some elements
+      ]]>
+    </description>
+    <concept name="v-if">
+      <title value="v-if" />
+      <docLink value="https://v3.vuejs.org/guide/conditional.html" />
+      <description>
+        <![CDATA[
+          The directive <code>v-if</code> is used to conditionally render a block. The block will only be rendered if the directive's expression returns a truthy value.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<h1 v-if="awesome">Vue is awesome!</h1>
+<h1 v-else>Oh no 😢</h1>
+        ]]>
+      </code>
+    </concept>
+    <concept name="conditional-groups">
+      <title value="Conditional groups" />
+      <docLink value="https://v3.vuejs.org/guide/conditional.html" />
+      <description>
+        <![CDATA[
+          Because v-if is a directive, it has to be attached to a single element. But what if we want to toggle more than one element? 
+          In this case we can use <code>v-if</code> on a <code>&lt;template&gt;</code> element, which serves as an invisible wrapper. 
+          The final rendered result will not include the <code>&lt;template&gt;</code> element.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</template>
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-else">
+      <title value="v-else" />
+      <docLink value="https://v3.vuejs.org/guide/conditional.html" />
+      <description>
+        <![CDATA[
+          You can use the <code>v-else</code> directive to indicate an "else block" for <code>v-if</code>:
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div v-if="Math.random() > 0.5">
+  Now you see me
+</div>
+<div v-else>
+  Now you don't
+</div>
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-else-if">
+      <title value="v-else-if" />
+      <docLink value="https://v3.vuejs.org/guide/conditional.html" />
+      <description>
+        <![CDATA[
+          The <code>v-else-if</code>, as the name suggests, serves as an "else if block" for <code>v-if</code>. It can also be chained multiple times:
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div v-if="type === 'A'">
+  A
+</div>
+<div v-else-if="type === 'B'">
+  B
+</div>
+<div v-else-if="type === 'C'">
+  C
+</div>
+<div v-else>
+  Not A/B/C
+</div
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-show">
+      <title value="v-show" />
+      <docLink value="https://v3.vuejs.org/guide/conditional.html" />
+      <description>
+        <![CDATA[
+          Another option for conditionally displaying an element is the <code>v-show</code> directive.
+          The difference is that an element with <code>v-show</code> will always be rendered and remain in the DOM; 
+          <code>v-show</code> only toggles the <code>display</code> CSS property of the element.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<h1 v-show="ok">Hello!</h1>
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

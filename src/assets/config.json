@@ -1,0 +1,59 @@
+{
+  "version": "0.0.1",
+  "frameworks": ["w3c", "react", "vue"],
+  "topics": ["html-basics", "templates", "components", "state-lifecycle", "conditional-rendering", "lists", 
+    "forms", "event-handling", "routing", "flux", "style"],
+  "framework-config": {
+    "w3c": {
+      "topics": {
+        "html-basics": {
+          "data-file": "w3c/html-basics.xml"
+        },
+        "templates": {
+          "data-file": "w3c/templates.xml"
+        },
+        "components": {
+          "data-file": "w3c/components.xml"
+        },
+        "state-lifecycle": {
+          "data-file": "w3c/state-lifecycle.xml"
+        },
+        "conditional-rendering": {
+          "data-file": "w3c/conditional-rendering.xml"
+        }
+      }
+    },
+    "react": {
+      "topics": {
+        "templates": {
+          "data-file": "react/templates.xml"
+        },
+        "components": {
+          "data-file": "react/components.xml"
+        },
+        "state-lifecycle": {
+          "data-file": "react/state-lifecycle.xml"
+        },
+        "conditional-rendering": {
+          "data-file": "react/conditional-rendering.xml"
+        }
+      }
+    },
+    "vue": {
+      "topics": {
+        "templates": {
+          "data-file": "vue/templates.xml"
+        },
+        "components": {
+          "data-file": "vue/components.xml"
+        },
+        "state-lifecycle": {
+          "data-file": "vue/state-lifecycle.xml"
+        },
+        "conditional-rendering": {
+          "data-file": "vue/conditional-rendering.xml"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.sidebar {
+  width: var(--layouts-sidebar-width);
+  height: 100%;
+  display: block;
+  position: fixed;
+  top: var(--layouts-header-height);
+  overflow: auto;
+  padding-top: 17px;
+  
+  background-color: var(--color-secondary-1-background);
+  color: var(--color-secondary-1-foreground);
+
+  font-family: orbitron;
+  font-size: 12pt;
+  letter-spacing: 0.11em;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  padding-inline-start: 0em;
+}
+
+.sidebar li a {
+  display: block;
+  padding-inline-start: 1em;
+
+  color: var(--color-secondary-1-foreground);
+  text-decoration: none;
+}
+
+.sidebar li a.is-active {
+  background-color: var(--color-secondary-1-detail-1);
+  color: var(--color-secondary-2-foreground);
+}
+
+.sidebar li a:hover {
+  background-color: var(--color-secondary-1-detail-3);
+  color: var(--color-secondary-2-detail-2);
+}

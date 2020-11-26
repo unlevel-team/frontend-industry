@@ -1,0 +1,61 @@
+@font-face {
+  font-family: sourceCodePro;
+  src: url(./assets/fonts/source-code-pro-v13-latin-600.woff2);
+}
+
+@font-face {
+  font-family: orbitron;
+  src: url(./assets/fonts/orbitron-v16-latin-regular.woff2);
+}
+
+@font-face {
+  font-family: play;
+  src: url(./assets/fonts/play-v12-latin-regular.woff2);
+}
+
+@font-face {
+  font-family: press-start-2p;
+  src: url(./assets/fonts/press-start-2p-v9-latin-regular.woff2);
+}
+
+@font-face {
+  font-family: special-elite;
+  src: url(./assets/fonts/special-elite-v11-latin-regular.woff2);
+}
+
+@font-face {
+  font-family: black-ops-one;
+  src: url(./assets/fonts/black-ops-one-v12-latin-regular.woff2);
+}
+
+
+:root {
+  --color-primary-background: #003535;
+  --color-primary-foreground: #809797;
+  --color-primary-detail-1: #226666;
+  --color-primary-detail-2: #4B7F7F;
+  --color-primary-detail-3: #064D4D;
+
+  --color-secondary-1-background: #03143B;
+  --color-secondary-1-foreground: #9299A9;
+  --color-secondary-1-detail-1: #2E4272;
+  --color-secondary-1-detail-2: #5A698D;
+  --color-secondary-1-detail-3: #0F2556;
+
+  --color-secondary-2-background: #004600;
+  --color-secondary-2-foreground: #ABCAAB;
+  --color-secondary-2-detail-1: #2D882D;
+  --color-secondary-2-detail-2: #64A964;
+  --color-secondary-2-detail-3: #086708;
+}
+
+/* @see https://www.w3schools.com/css/css3_buttons.asp */
+.button {
+  display: inline-block;
+  padding: 15px 32px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}

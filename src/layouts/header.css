@@ -1,0 +1,83 @@
+.header {
+  position: fixed;
+  width: 100%;
+  min-height: var(--layouts-header-height);
+  z-index: 100;
+
+  background-color: var(--color-secondary-2-background);
+  color: var(--color-secondary-2-foreground);
+}
+
+
+.header .title {
+  display: inline-block;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
+  font-family: 'play';
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+/* Links ------------------------------------------------------------------ */
+.header .links {
+  display: inline;
+  float: right;
+  padding-top: 0.5em;
+  padding-right: 0.5em;
+}
+
+.header .links a {
+  text-decoration: none;
+}
+
+.header .links .image {
+  display: inline-block;
+  background-color: var(--color-secondary-1-foreground);
+  height: 50px;
+  width: 50px;
+  border-radius: 0.7em;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header .links .info-image {
+  background-image: url("./assets/images/information-icon.svg");
+}
+
+.header .links .github-image {
+  background-image: url("./assets/images/GitHub-Mark-120px-plus.png");
+}
+
+/* Modal ------------------------------------------------------------------ */
+div.modal-info {
+  background-color: var(--color-secondary-1-background);
+}
+
+div.modal-info .tingle-modal-box__content {
+  background-color: var(--color-primary-background);
+  color: var(--color-secondary-1-foreground);
+  font-family: 'special-elite';
+}
+
+div.modal-info .tingle-modal-box__content h1 {
+  color: var(--color-primary-foreground);
+  font-family: 'black-ops-one';
+  font-size: 2em;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+div.modal-info .tingle-modal-box__footer {
+  background-color: var(--color-primary-detail-3);
+}
+
+div.modal-info .tingle-btn {
+  font-family: 'orbitron';
+}
+
+div.modal-info .tingle-btn--primary {
+  background-color: var(--color-primary-foreground);
+  color: var(--color-secondary-1-background);
+}

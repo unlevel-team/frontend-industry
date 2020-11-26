@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="conditional-rendering">
+    <title value="W3C conditional rendering" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Set some conditional logic inside a function
+      ]]>
+    </description>
+    <concept name="conditional-rendering">
+      <title value="Conditional rendering" />
+      <docLink value="https://gomakethings.com/rendering-dynamic-and-conditional-templates-with-vanilla-javascript/" />
+      <description>
+        <![CDATA[
+          Conditional logic inside a function
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+var render = function (template, node) {
+	if (!node) return;
+	node.innerHTML = (typeof template === 'function' ? template() : template);
+};
+
+// A string
+var templateString = '<h1>Hello world!</h1>';
+
+// A function that returns a string
+var templateFunction = function () {
+	if (someData.page === 'about') {
+		template = '<h1>About Us</h1>';
+	} else {
+		template = '<h1>Hello world!</h1>';
+	}
+	return template;
+};
+
+render(templateString, document.querySelector('#main'));
+// or...
+render(templateFunction, document.querySelector('#main'));
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

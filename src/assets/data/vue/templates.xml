@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="templates">
+    <title value="Vue templates" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Vue.js uses an HTML-based template syntax that allows you to declaratively bind the rendered DOM to the underlying component instance's data. All Vue.js templates are valid HTML that can be parsed by spec-compliant browsers and HTML parsers.
+      ]]>
+    </description>
+    <concept name="declarative-rendering-html">
+      <title value="Declarative Rendering" />
+      <docLink value="https://vuejs.org/v2/guide/index.html#Declarative-Rendering" />
+      <description>
+        <![CDATA[
+          At the core of Vue.js is a system that enables us to declaratively render data to the DOM using straightforward template syntax:
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="app">
+  {{ message }}
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+        ]]>
+      </code>
+    </concept>
+    <concept name="template-literals">
+      <title value="Template literals" />
+      <docLink value="https://vuejsdevelopers.com/2017/03/24/vue-js-component-templates/" />
+      <description>
+        <![CDATA[
+          The multi-line feature makes these much more useful for defining component templates compared to regular strings, as they make markup more readable.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+Vue.component('my-checkbox', {
+  template: `
+    <div class="checkbox-wrapper" @click="check">
+      <div :class="{ checkbox: true, checked: checked }"></div>
+      <div class="title">{{ title }}</div>
+    </div>
+  `,
+  data() {
+    return { checked: false, title: 'Check me' }
+  },
+  methods: {
+    check() { this.checked = !this.checked; }
+  }
+});
+        ]]>
+      </code>
+    </concept>
+    <concept name="inline-templates">
+      <title value="Inline templates" />
+      <docLink value="https://vuejsdevelopers.com/2017/03/24/vue-js-component-templates/" />
+      <description>
+        <![CDATA[
+          With this method, you define the component's template within the parent template when it gets used. Just be sure to add the attribute <code>inline-template</code> so Vue knows where to find it.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+Vue.component('my-checkbox', {
+  data() {
+    return { checked: false, title: 'Check me' }
+  },
+  methods: {
+    check() { this.checked = !this.checked; }
+  }
+});
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<div id="app">
+  ...
+  <my-checkbox inline-template>
+    <div class="checkbox-wrapper" @click="check">
+      <div :class="{ checkbox: true, checked: checked }"></div>
+      <div class="title">{{ title }}</div>
+    </div>
+  </my-checkbox>
+</div>
+        ]]>
+      </code>
+    </concept>
+    <concept name="single-file-components">
+      <title value="Single-file components" />
+      <docLink value="https://vuejsdevelopers.com/2017/03/24/vue-js-component-templates/" />
+      <description>
+        <![CDATA[
+          One of the most popular features of Vue.js is the Single-File Component (SFC). These allow you to write markup while keeping your component defintion in one file. 
+          They're compiled by vue-loader into render functions so you get the best runtime performance, too.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+<template>
+  <div class="checkbox-wrapper" @click="check">
+    <div :class="{ checkbox: true, checked: checked }"></div>
+    <div class="title">{{ title }}</div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return { checked: false, title: 'Check me' }
+  },
+  methods: {
+    check() { this.checked = !this.checked; }
+  }
+};
+</script>
+        ]]>
+      </code>
+    </concept>
+    <concept name="interpolations">
+      <title value="Interpolations" />
+      <docLink value="https://v3.vuejs.org/guide/template-syntax.html" />
+      <description>
+        <![CDATA[
+          The most basic form of data binding is text interpolation using the "Mustache" syntax (double curly braces).
+          The double mustaches interprets the data as plain text, not HTML. In order to output real HTML, you will need to use the <code>v-html</code> directive.
+          Mustaches cannot be used inside HTML attributes. Instead, use a <code>v-bind</code> directive.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<span>Message: {{ msg }}</span>
+<span v-once>This will never change: {{ msg }}</span>
+<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+<div v-bind:id="dynamicId"></div>
+<div v-bind:id="'list-' + id"></div>
+<button v-bind:disabled="isButtonDisabled">Button</button>
+        ]]>
+      </code>
+    </concept>
+    <concept name="directives">
+      <title value="Directives" />
+      <docLink value="https://v3.vuejs.org/guide/template-syntax.html" />
+      <description>
+        <![CDATA[
+          Directives are special attributes with the <code>v-</code> prefix. Directive attribute values are expected to be a single JavaScript expression. <br/>
+          Some directives can take an "argument", denoted by a colon after the directive name. For example, the <code>v-bind</code> directive is 
+          used to reactively update an HTML attribute.<br/>
+          It is also possible to use a JavaScript expression in a directive argument by wrapping it with square brackets<br/>
+          Modifiers are special postfixes denoted by a dot, which indicate that a directive should be bound in some special way
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<p v-if="seen">Now you see me</p>
+<a v-bind:href="url"> ... </a>
+<a v-on:click="doSomething"> ... </a>
+<a v-bind:[attributeName]="url"> ... </a>
+<a v-on:[eventName]="doSomething"> ... </a>
+<form v-on:submit.prevent="onSubmit">...</form>
+        ]]>
+      </code>
+    </concept>
+    <concept name="shorthands">
+      <title value="Shorthands" />
+      <docLink value="https://v3.vuejs.org/guide/template-syntax.html" />
+      <description>
+        <![CDATA[
+          The <code>v-</code> prefix serves as a visual cue for identifying Vue-specific attributes in your templates. This is useful when you are using Vue.js to apply dynamic behavior 
+          to some existing markup, but can feel verbose for some frequently used directives.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- v-bind Shorthand -->
+<!-- full syntax -->
+<a v-bind:href="url"> ... </a>
+
+<!-- shorthand -->
+<a :href="url"> ... </a>
+
+<!-- shorthand with dynamic argument -->
+<a :[key]="url"> ... </a>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- v-on Shorthand -->
+<!-- full syntax -->
+<a v-on:click="doSomething"> ... </a>
+
+<!-- shorthand -->
+<a @click="doSomething"> ... </a>
+
+<!-- shorthand with dynamic argument -->
+<a @[event]="doSomething"> ... </a>
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>
