@@ -1,8 +1,8 @@
 'use strict';
 
 import _configState from '../state/config.js';
-import _locationState from '../state/location.js';
-import _frameworkState from '../state/framework.js';
+import stateLocation from '../state/location.js';
+import stateFramework from '../state/framework.js';
 import { ViewCore } from './view-core.js';
 import _pickerForFramework from '../components/pickerForFramework';
 
@@ -13,8 +13,8 @@ const _VIEWS = {
   },
 
   init: () => {
-    _locationState.listenLocationChanges({ listener: _VIEWS._onLocationChanges });
-    _frameworkState.listenFrameworkChanges({ listener: _VIEWS._onFrameworkChanges });
+    stateLocation.listenLocationChanges({ listener: _VIEWS._onLocationChanges });
+    stateFramework.listenFrameworkChanges({ listener: _VIEWS._onFrameworkChanges });
 
     _pickerForFramework.init();
     _VIEWS._initTopicsViews();
@@ -52,7 +52,7 @@ const _VIEWS = {
 
   _onLocationChanges(_options) {
     const { _env } = _VIEWS;
-    const { title } = _locationState.getLocation();
+    const { title } = stateLocation.getLocation();
 
     if (_env.activeView !== null) {
       _VIEWS.getView({ name: _env.activeView }).deactivate();
@@ -61,11 +61,11 @@ const _VIEWS = {
     const _view = _VIEWS.getView({ name: title });
     _view.activate();
 
-    const framework = _frameworkState.getFramework();
+    const framework = stateFramework.getFramework();
     if (_view._env.frameworks.includes(framework)) {
       _view.loadTopic({ framework });
     } else {
-      _frameworkState.changeFramework({ name: _view._env.frameworks[0] });
+      stateFramework.changeFramework({ name: _view._env.frameworks[0] });  // Load 'default' framework
     }
   },
 

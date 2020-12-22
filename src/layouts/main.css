@@ -1,12 +1,7 @@
-
 .main {
-  /* padding-top: var(--layouts-header-height); */
-  /* margin-left: var(--layouts-sidebar-width); */
-  position: fixed;
-  top: var(--layouts-header-height);
-  left: var(--layouts-sidebar-width);
-  height: calc(100% - var(--layouts-header-height));
-  width: calc(100% - var(--layouts-sidebar-width));
+  flex: 1;
+  order: 2;
+  max-height: calc(100vh - var(--layouts-header-height));
   overflow: auto;
   background-color: var(--color-primary-background);
   color: var(--color-primary-foreground);

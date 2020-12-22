@@ -9,20 +9,31 @@ const _LAYOUT = {
   _env: {
     initialized: false,
     layouts: {},
+    bodyContainer: null,
+    mainContainer: null,
   },
 
   init: () => {
     const {_env} = _LAYOUT;
     if (_env.initialized === true) { return; }
 
+    _env.bodyContainer = document.createElement('div');
+    _env.bodyContainer.classList.add("bodyContainer");
+    document.body.appendChild(_env.bodyContainer);    
+
     _header.init();
-    document.body.appendChild(_header.getComponent());
+    _env.bodyContainer.appendChild(_header.getComponent());
     _env.layouts.header = _header;
+
+    _env.mainContainer = document.createElement('div'); // Contains 'sidebar' and 'main' layers
+    _env.mainContainer.classList.add("mainContainer");
+    _env.bodyContainer.appendChild(_env.mainContainer);
+
     _sidebar.init();
-    document.body.appendChild(_sidebar.getComponent());
+    _env.mainContainer.appendChild(_sidebar.getComponent());
     _env.layouts.sidebar = _sidebar;
     _main.init();
-    document.body.appendChild(_main.getComponent());
+    _env.mainContainer.appendChild(_main.getComponent());
     _env.layouts.main = _main;
 
     _env.initialized = true;

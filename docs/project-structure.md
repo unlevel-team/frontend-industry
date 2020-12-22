@@ -1,0 +1,14 @@
+# Project structure
+- **config:** configuration files for development
+- **docs**
+- **public:** contains static files that are used in the project
+  - **libs:** third party libraries
+- **src:** contains the 'source code' and 'assets' for the project
+  - **assets:** Contains the files that are not code
+  - **components:** Elements that are re-used inside the views
+  - **design:** Styles CSS
+  - **layouts:** 
+  - **router:**
+  - **state:**
+  - **utils:**
+  - **views:**

@@ -4,6 +4,20 @@
   --layouts-sidebar-width: 225px;
 }
 
+body > div.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
+  min-width: auto;
+  min-height: 100vh;
+}
+
+body > div.bodyContainer > div.mainContainer {
+  display: flex;
+  flex: 1;
+}
+
 @import './header.css';
 @import './sidebar.css';
 @import './main.css';

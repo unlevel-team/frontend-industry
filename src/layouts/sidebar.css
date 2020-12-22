@@ -1,18 +1,21 @@
 .sidebar {
-  width: var(--layouts-sidebar-width);
-  height: 100%;
-  display: block;
-  position: fixed;
-  top: var(--layouts-header-height);
+  flex-grow: 0;
+  flex-shrink: 0;
+  order: 1;
+
+  min-width: var(--layouts-sidebar-width);
+  max-width: var(--layouts-sidebar-width);
+
   overflow: auto;
   padding-top: 17px;
   
   background-color: var(--color-secondary-1-background);
   color: var(--color-secondary-1-foreground);
 
-  font-family: orbitron;
-  font-size: 12pt;
-  letter-spacing: 0.11em;
+  font-family: orbitron, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1rem;
+  
 }
 
 .sidebar ul {

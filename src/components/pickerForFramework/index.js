@@ -1,6 +1,7 @@
 'use strict';
 
 import { html, render } from 'lit-html';
+import stateConfig from '../../state/config.js';
 import stateFrameworks from '../../state/framework.js';
 
 
@@ -8,19 +9,22 @@ const _PICFRMWK = {
   _env: {
     myDIV: null,
     frameworks: [],
+    config: null,
   },
 
   init: () => {
     const { _env } = _PICFRMWK;
     if (_env.myDIV !== null) { return; }
 
+    _env.config = stateConfig.getConfig()['framework-picker'];
+
     _env.myDIV = document.createElement('div');
     _env.myDIV.classList.add("pickerForFramework");
 
     stateFrameworks.listenFrameworkChanges({ listener: _PICFRMWK._listenerFrameworkChange });
 
-    _PICFRMWK.update({ frameworks: ['w3c'] });
-    _PICFRMWK._listenerFrameworkChange({ framework: 'w3c' }); // default framework
+    _PICFRMWK.update({ frameworks: [_env.config.default] });
+    _PICFRMWK._listenerFrameworkChange({ framework: _env.config.default }); // default framework
   },
 
   getComponent() {
@@ -31,11 +35,20 @@ const _PICFRMWK = {
   _render: () => {
     const { _env } = _PICFRMWK;
     const _innerHTML = html`
-      <button data-framework="w3c" @click=${_PICFRMWK._handleButtonClick}>W3C</button>
-      <button data-framework="react" @click=${_PICFRMWK._handleButtonClick}>React</button>
-      <button data-framework="vue" @click=${_PICFRMWK._handleButtonClick}>Vue</button>
+      ${_PICFRMWK._renderButtons()}
     `;
     render(_innerHTML, _env.myDIV);
+  },
+
+  _renderButtons() {
+    const { buttons } = _PICFRMWK._env.config;
+    const _result = [];
+
+    Object.keys(buttons).forEach(_k => {
+      _result.push( html `<button data-framework="${_k}" @click=${_PICFRMWK._handleButtonClick}>${buttons[_k].text}</button>` );
+    });
+    
+    return _result;
   },
 
   update: ({ frameworks }) => {

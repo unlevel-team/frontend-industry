@@ -55,5 +55,32 @@
         }
       }
     }
+  },
+  "router": {
+    "default": "/html-basics",
+    "routes": {
+      "html-basics": { "url": "/html-basics" },
+      "templates": { "url": "/templates" },
+      "components": { "url": "/components" },
+      "state-lifecycle": { "url": "/state-lifecycle" },
+      "conditional-rendering": { "url": "/conditional-rendering" }
+    }
+  },
+  "sidebar": {
+    "links": {
+      "html-basics": { "text": "HTML basics", "url": "./html-basics" },
+      "templates": { "text": "Templates", "url": "./templates" },
+      "components": { "text": "Components", "url": "./components" },
+      "state-lifecycle": { "text": "State and lifecycle", "url": "./state-lifecycle" },
+      "conditional-rendering": { "text": "Conditional rendering", "url": "./conditional-rendering" }
+    }
+  },
+  "framework-picker": {
+    "default": "w3c",
+    "buttons": {
+      "w3c": { "text": "W3C" },
+      "react": { "text": "React" },
+      "vue": { "text": "Vue" }
+    }
   }
 }

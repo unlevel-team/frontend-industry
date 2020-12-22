@@ -1,13 +1,15 @@
 .header {
-  position: fixed;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+
   width: 100%;
   min-height: var(--layouts-header-height);
-  z-index: 100;
+  max-height: var(--layouts-header-height);
 
   background-color: var(--color-secondary-2-background);
   color: var(--color-secondary-2-foreground);
 }
-
 
 .header .title {
   display: inline-block;
