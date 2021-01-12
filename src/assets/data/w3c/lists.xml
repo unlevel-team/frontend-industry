@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="lists">
+    <title value="HTML lists" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        HTML lists allow web developers to group a set of related items in lists.
+      ]]>
+    </description>
+    <concept name="ul">
+      <title value="Unordered HTML List" />
+      <docLink value="https://www.w3schools.com/html/html_lists.asp" />
+      <description>
+        <![CDATA[
+          An unordered list starts with the <code>&lt;ul&gt;</code> tag. Each list item starts with the <code>&lt;li&gt;</code> tag.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<ul>
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ul>
+        ]]>
+      </code>
+    </concept>
+    <concept name="ol">
+      <title value="Ordered HTML List" />
+      <docLink value="https://www.w3schools.com/html/html_lists.asp" />
+      <description>
+        <![CDATA[
+          An ordered list starts with the <code>&lt;ol&gt;</code> tag. Each list item starts with the <code>&lt;li&gt;</code> tag.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<ol>
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ol>
+        ]]>
+      </code>
+    </concept>
+    <concept name="dl">
+      <title value="HTML Description Lists" />
+      <docLink value="https://www.w3schools.com/html/html_lists.asp" />
+      <description>
+        <![CDATA[
+          HTML also supports description lists.<br>
+          A description list is a list of terms, with a description of each term.<br>
+          The <code>&lt;dl&gt;</code> tag defines the description list, the <code>&lt;dt&gt;</code> tag defines the term (name), and the <code>&lt;dd&gt;</code> tag describes each term:
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<dl>
+  <dt>Coffee</dt>
+  <dd>- black hot drink</dd>
+  <dt>Milk</dt>
+  <dd>- white cold drink</dd>
+</dl>
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

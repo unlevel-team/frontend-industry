@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="flux">
+    <title value="Flux state management" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Build a state management system with vanilla JavaScript
+      ]]>
+    </description>
+    <concept name="build-flux-paradigm">
+      <title value="Build a custom Flux paradigm" />
+      <docLink value="https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/" />
+      <description>
+        <![CDATA[
+          Libraries like Redux, MobX and Vuex make managing cross-component state almost trivial. <br>
+          The main structure for develop a Flux paradigm are:
+          <ul>
+            <li>Pub/Sub</li>
+            <li>The core Store object</li>
+            <li>Dispatch and commit (actions and mutations)</li>
+          </ul>
+        ]]>
+      </description>
+    </concept>
+  </topic>
+</data>

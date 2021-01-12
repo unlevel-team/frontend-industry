@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="style">
+    <title value="Styling with Vue" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Class and Style Bindings
+      ]]>
+    </description>
+    <concept name="binding-html-classes">
+      <title value="Binding HTML Classes" />
+      <docLink value="https://v3.vuejs.org/guide/class-and-style.html" />
+      <description>
+        <![CDATA[
+          We can pass an object to <code>:class</code> (short for <code>v-bind:class</code>) to dynamically toggle classes
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div
+  class="static"
+  :class="{ active: isActive, 'text-danger': hasError }"
+></div>
+
+// Will render
+<div class="static active text-danger"></div>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<div :class="classObject"></div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+data() {
+  return {
+    classObject: {
+      active: true,
+      'text-danger': false
+    }
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+data() {
+  return {
+    isActive: true,
+    error: null
+  }
+},
+computed: {
+  classObject() {
+    return {
+      active: this.isActive && !this.error,
+      'text-danger': this.error && this.error.type === 'fatal'
+    }
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="binding-inline-styles">
+      <title value="Binding Inline Styles" />
+      <docLink value="https://v3.vuejs.org/guide/class-and-style.html" />
+      <description>
+        <![CDATA[
+          The object syntax for <code>:style</code> is pretty straightforward - it looks almost like CSS, except it's a JavaScript object. 
+          You can use either camelCase or kebab-case (use quotes with kebab-case) for the CSS property names
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+data() {
+  return {
+    activeColor: 'red',
+    fontSize: 30
+  }
+}
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<div :style="styleObject"></div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+data() {
+  return {
+    styleObject: {
+      color: 'red',
+      fontSize: '13px'
+    }
+  }
+}
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

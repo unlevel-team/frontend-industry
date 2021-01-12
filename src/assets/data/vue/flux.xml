@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="flux">
+    <title value="Vuex" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Vuex (Official Flux-Like Implementation)
+      ]]>
+    </description>
+    <concept name="simple-state-management">
+      <title value="Simple State Management from Scratch" />
+      <docLink value="https://v3.vuejs.org/guide/state-management.html" />
+      <description>
+        <![CDATA[
+          It is often overlooked that the source of truth in Vue applications is the reactive <code>data</code> object - a component instance only proxies access to it. 
+          Therefore, if you have a piece of state that should be shared by multiple instances, you can use a <code>reactive</code> method to make an object reactive
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const sourceOfTruth = Vue.reactive({
+  message: 'Hello'
+})
+
+const appA = Vue.createApp({
+  data() {
+    return sourceOfTruth
+  }
+}).mount('#app-a')
+
+const appB = Vue.createApp({
+  data() {
+    return sourceOfTruth
+  }
+}).mount('#app-b')
+<div id="app-a">App A: {{ message }}</div>
+
+<div id="app-b">App B: {{ message }}</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Store pattern
+const store = {
+  debug: true,
+
+  state: Vue.reactive({
+    message: 'Hello!'
+  }),
+
+  setMessageAction(newValue) {
+    if (this.debug) {
+      console.log('setMessageAction triggered with', newValue)
+    }
+
+    this.state.message = newValue
+  },
+
+  clearMessageAction() {
+    if (this.debug) {
+      console.log('clearMessageAction triggered')
+    }
+
+    this.state.message = ''
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="mapstate-helper">
+      <title value="The mapState Helper" />
+      <docLink value="https://next.vuex.vuejs.org/guide/state.html" />
+      <description>
+        <![CDATA[
+          When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. 
+          To deal with this we can make use of the <code>mapState</code> helper which generates computed getter functions for us, saving us some keystrokes.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+// in full builds helpers are exposed as Vuex.mapState
+import { mapState } from 'vuex'
+
+export default {
+  // ...
+  computed: mapState({
+    // arrow functions can make the code very succinct!
+    count: state => state.count,
+
+    // passing the string value 'count' is same as `state => state.count`
+    countAlias: 'count',
+
+    // map this.count to store.state.count
+    'count'
+
+    // to access local state with `this`, a normal function must be used
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+computed: {
+  localComputed () { /* ... */ },
+  // mix this into the outer object with the object spread operator
+  ...mapState({
+    // ...
+  })
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="getters">
+      <title value="Getters" />
+      <docLink value="https://next.vuex.vuejs.org/guide/getters.html" />
+      <description>
+        <![CDATA[
+          Vuex allows us to define "getters" in the store. You can think of them as computed properties for stores. <br>
+          The getters will be exposed on the <code>store.getters</code> object, and you access values as properties <br>
+          Getters will also receive other getters as the 2nd argument. <br>
+          You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store <br>
+          The <code>mapGetters</code> helper simply maps store getters to local computed properties
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const store = createStore({
+  state: {
+    todos: [
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
+    ]
+  },
+  getters: {
+    doneTodos (state) {
+      return state.todos.filter(todo => todo.done)
+    }
+  }
+})
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
+
+getters: {
+  // ...
+  doneTodosCount (state, getters) {
+    return getters.doneTodos.length
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+getters: {
+  // ...
+  getTodoById: (state) => (id) => {
+    return state.todos.find(todo => todo.id === id)
+  }
+}
+
+store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+import { mapGetters } from 'vuex'
+
+export default {
+  // ...
+  computed: {
+    // mix the getters into computed with object spread operator
+    ...mapGetters([
+      'doneTodosCount',
+      'anotherGetter',
+      // ...
+    ])
+  }
+}
+
+// If you want to map a getter to a different name, use an object
+...mapGetters({
+  // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+  doneCount: 'doneTodosCount'
+})
+        ]]>
+      </code>
+    </concept>
+    <concept name="mutations">
+      <title value="Mutations" />
+      <docLink value="https://next.vuex.vuejs.org/guide/mutations.html" />
+      <description>
+        <![CDATA[
+          The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: 
+          each mutation has a string <b>type</b> and a <b>handler</b>. The handler function is where we perform actual state modifications, 
+          and it will receive the state as the first argument. <br>
+          To invoke a mutation handler, you need to call <code>store.commit</code> with its type.<br>
+          You can pass an additional argument to <code>store.commit</code>, which is called the <b>payload</b> for the mutation.<br>
+          An alternative way to commit a mutation is by directly using an object that has a type property.<br>
+          You can commit mutations in components with <code>this.$store.commit('xxx')</code>, or use the <code>mapMutations</code> helper which maps component methods to <code>store.commit</code> calls (requires root store injection)
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const store = createStore({
+  state: {
+    count: 1
+  },
+  mutations: {
+    increment (state, n) {
+      state.count += n
+    }
+  }
+})
+
+store.commit('increment', 10)
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const store = createStore({
+  state: {
+    count: 1
+  },
+  mutations: {
+    increment (state, payload) {
+      state.count += payload.amount
+    }
+  }
+})
+
+store.commit({
+  type: 'increment',
+  amount: 10
+})
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations([
+      'increment', // map `this.increment()` to `this.$store.commit('increment')`
+
+      // `mapMutations` also supports payloads:
+      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
+    ]),
+    ...mapMutations({
+      add: 'increment' // map `this.add()` to `this.$store.commit('increment')`
+    })
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="actions">
+      <title value="Actions" />
+      <docLink value="https://next.vuex.vuejs.org/guide/actions.html" />
+      <description>
+        <![CDATA[
+          Actions are similar to mutations, the differences being that:
+          <ul>
+            <li>Instead of mutating the state, actions commit mutations.</li>
+            <li>Actions can contain arbitrary asynchronous operations.</li>
+          </ul>
+          Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call <code>context.commit</code> to commit a mutation, 
+          or access the state and getters via <code>context.state</code> and <code>context.getters</code>. We can even call other actions with <code>context.dispatch</code>.<br>
+          You can dispatch actions in components with <code>this.$store.dispatch('xxx')</code>, or use the <code>mapActions</code> helper which maps component methods to 
+          <code>store.dispatch</code> calls (requires root store injection):
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const store = createStore({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  },
+  actions: {
+    increment (context) {
+      context.commit('increment')
+    }
+  }
+})
+
+// Actions support the same payload format and object-style dispatch
+// dispatch with a payload
+store.dispatch('incrementAsync', {
+  amount: 10
+})
+
+// dispatch with an object
+store.dispatch({
+  type: 'incrementAsync',
+  amount: 10
+})
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+actions: {
+  checkout ({ commit, state }, products) {
+    // save the items currently in the cart
+    const savedCartItems = [...state.cart.added]
+    // send out checkout request, and optimistically
+    // clear the cart
+    commit(types.CHECKOUT_REQUEST)
+    // the shop API accepts a success callback and a failure callback
+    shop.buyProducts(
+      products,
+      // handle success
+      () => commit(types.CHECKOUT_SUCCESS),
+      // handle failure
+      () => commit(types.CHECKOUT_FAILURE, savedCartItems)
+    )
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+actions: {
+  actionA ({ commit }) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        commit('someMutation')
+        resolve()
+      }, 1000)
+    })
+  }
+}
+
+store.dispatch('actionA').then(() => {
+  // ...
+})
+
+// And also in another action
+actions: {
+  // ...
+  actionB ({ dispatch, commit }) {
+    return dispatch('actionA').then(() => {
+      commit('someOtherMutation')
+    })
+  }
+}
+
+// Finally, if we make use of async / await, we can compose our actions like this
+actions: {
+  async actionA ({ commit }) {
+    commit('gotData', await getData())
+  },
+  async actionB ({ dispatch, commit }) {
+    await dispatch('actionA') // wait for `actionA` to finish
+    commit('gotOtherData', await getOtherData())
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="modules">
+      <title value="Modules" />
+      <docLink value="https://next.vuex.vuejs.org/guide/modules.html" />
+      <description>
+        <![CDATA[
+          Vuex allows us to divide our store into <b>modules</b>. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down<br>
+          Inside module actions, <code>context.state</code> will expose the local state, and root state will be exposed as <code>context.rootState</code>
+          Inside module getters, the root state will be exposed as their 3rd argument.<br>
+          You can register a module after the store has been created with the <code>store.registerModule</code> method.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const moduleA = {
+  state: () => ({ ... }),
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}
+
+const moduleB = {
+  state: () => ({ ... }),
+  mutations: { ... },
+  actions: { ... }
+}
+
+const store = createStore({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+})
+
+store.state.a // -> `moduleA`'s state
+store.state.b // -> `moduleB`'s state
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const moduleA = {
+  // ...
+  actions: {
+    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+      if ((state.count + rootState.count) % 2 === 1) {
+        commit('increment')
+      }
+    }
+  },
+  getters: {
+    sumWithRootCount (state, getters, rootState) {
+      return state.count + rootState.count
+    }
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Dynamic Module Registration
+import { createStore } from 'vuex'
+
+const store = createStore({ /* options */ })
+
+// register a module `myModule`
+store.registerModule('myModule', {
+  // ...
+})
+
+// register a nested module `nested/myModule`
+store.registerModule(['nested', 'myModule'], {
+  // ...
+})
+        ]]>
+      </code>
+    </concept>
+    <concept name="namespacing">
+      <title value="Namespacing" />
+      <docLink value="https://next.vuex.vuejs.org/guide/modules.html" />
+      <description>
+        <![CDATA[
+          If you want your modules to be more self-contained or reusable, you can mark it as namespaced with <code>namespaced: true</code>. 
+          When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at.<br>
+          If you want to use global state and getters, <code>rootState</code> and <code>rootGetters</code> are passed as the 3rd and 4th arguments to getter functions, 
+          and also exposed as properties on the context object passed to action functions.<br>
+          To dispatch actions or commit mutations in the global namespace, pass <code>{ root: true }</code> as the 3rd argument to <code>dispatch</code> and <code>commit</code>.<br>
+          If you want to register global actions in namespaced modules, you can mark it with <code>root: true</code> and place the action definition to function <code>handler</code>.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const store = createStore({
+  modules: {
+    account: {
+      namespaced: true,
+
+      // module assets
+      state: () => ({ ... }), // module state is already nested and not affected by namespace option
+      getters: {
+        isAdmin () { ... } // -> getters['account/isAdmin']
+      },
+      actions: {
+        login () { ... } // -> dispatch('account/login')
+      },
+      mutations: {
+        login () { ... } // -> commit('account/login')
+      },
+
+      // nested modules
+      modules: {
+        // inherits the namespace from parent module
+        myPage: {
+          state: () => ({ ... }),
+          getters: {
+            profile () { ... } // -> getters['account/profile']
+          }
+        },
+
+        // further nest the namespace
+        posts: {
+          namespaced: true,
+
+          state: () => ({ ... }),
+          getters: {
+            popular () { ... } // -> getters['account/posts/popular']
+          }
+        }
+      }
+    }
+  }
+})
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Accessing Global Assets in Namespaced Modules
+modules: {
+  foo: {
+    namespaced: true,
+
+    getters: {
+      // `getters` is localized to this module's getters
+      // you can use rootGetters via 4th argument of getters
+      someGetter (state, getters, rootState, rootGetters) {
+        getters.someOtherGetter // -> 'foo/someOtherGetter'
+        rootGetters.someOtherGetter // -> 'someOtherGetter'
+        rootGetters['bar/someOtherGetter'] // -> 'bar/someOtherGetter'
+      },
+      someOtherGetter: state => { ... }
+    },
+
+    actions: {
+      // dispatch and commit are also localized for this module
+      // they will accept `root` option for the root dispatch/commit
+      someAction ({ dispatch, commit, getters, rootGetters }) {
+        getters.someGetter // -> 'foo/someGetter'
+        rootGetters.someGetter // -> 'someGetter'
+        rootGetters['bar/someGetter'] // -> 'bar/someGetter'
+
+        dispatch('someOtherAction') // -> 'foo/someOtherAction'
+        dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+        commit('someMutation') // -> 'foo/someMutation'
+        commit('someMutation', null, { root: true }) // -> 'someMutation'
+      },
+      someOtherAction (ctx, payload) { ... }
+    }
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Register Global Action in Namespaced Modules
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+
+      actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Binding Helpers with Namespace
+computed: {
+  ...mapState({
+    a: state => state.some.nested.module.a,
+    b: state => state.some.nested.module.b
+  }),
+  ...mapGetters([
+    'some/nested/module/someGetter', // -> this['some/nested/module/someGetter']
+    'some/nested/module/someOtherGetter', // -> this['some/nested/module/someOtherGetter']
+  ])
+},
+methods: {
+  ...mapActions([
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
+  ])
+}
+
+// ...
+computed: {
+  ...mapState('some/nested/module', {
+    a: state => state.a,
+    b: state => state.b
+  }),
+  ...mapGetters('some/nested/module', [
+    'someGetter', // -> this.someGetter
+    'someOtherGetter', // -> this.someOtherGetter
+  ])
+},
+methods: {
+  ...mapActions('some/nested/module', [
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
+  ])
+}
+
+
+// ...
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // look up in `some/nested/module`
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // look up in `some/nested/module`
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

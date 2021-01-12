@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="routing">
+    <title value="React router" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The React router
+      ]]>
+    </description>
+    <concept name="basic-routing">
+      <title value="Basic Routing" />
+      <docLink value="https://reactrouter.com/web/guides/quick-start" />
+      <description>
+        <![CDATA[
+          In this example we have 3 “pages” handled by the router: a home page, an about page, and a users page. As you click around on the different <code>&lt;Link&gt;</code>s, 
+          the router renders the matching <code>&lt;Route&gt;</code>.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+export default function App() {
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function About() {
+  return <h2>About</h2>;
+}
+
+function Users() {
+  return <h2>Users</h2>;
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="nested-routing">
+      <title value="Nested Routing" />
+      <docLink value="https://reactrouter.com/web/guides/quick-start" />
+      <description>
+        <![CDATA[
+          This example shows how nested routing works. The route <code>/topics</code> loads the Topics component, which renders any further <code>&lt;Route&gt;</code>'s conditionally on the paths <code>:id</code> value.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+
+export default function App() {
+  return (
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/topics">Topics</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/topics">
+            <Topics />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function About() {
+  return <h2>About</h2>;
+}
+
+function Topics() {
+  let match = useRouteMatch();
+
+  return (
+    <div>
+      <h2>Topics</h2>
+
+      <ul>
+        <li>
+          <Link to={`${match.url}/components`}>Components</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/props-v-state`}>
+            Props v. State
+          </Link>
+        </li>
+      </ul>
+
+      {/* The Topics page has its own <Switch> with more routes
+          that build on the /topics URL path. You can think of the
+          2nd <Route> here as an "index" page for all topics, or
+          the page that is shown when no topic is selected */}
+      <Switch>
+        <Route path={`${match.path}/:topicId`}>
+          <Topic />
+        </Route>
+        <Route path={match.path}>
+          <h3>Please select a topic.</h3>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
+function Topic() {
+  let { topicId } = useParams();
+  return <h3>Requested topic ID: {topicId}</h3>;
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="url-parameters">
+      <title value="URL parameters" />
+      <docLink value="https://reactrouter.com/web/guides/quick-start" />
+      <description>
+        <![CDATA[
+          Params are placeholders in the URL that begin with a colon, like the <code>`:id`</code> param defined in the route in this example. A similar convention
+          is used for matching dynamic segments in other popular web frameworks like Rails and Express.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+
+export default function ParamsExample() {
+  return (
+    <Router>
+      <div>
+        <h2>Accounts</h2>
+
+        <ul>
+          <li>
+            <Link to="/netflix">Netflix</Link>
+          </li>
+          <li>
+            <Link to="/zillow-group">Zillow Group</Link>
+          </li>
+          <li>
+            <Link to="/yahoo">Yahoo</Link>
+          </li>
+          <li>
+            <Link to="/modus-create">Modus Create</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route path="/:id" children={<Child />} />
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Child() {
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  let { id } = useParams();
+
+  return (
+    <div>
+      <h3>ID: {id}</h3>
+    </div>
+  );
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="no-match-404">
+      <title value="No match (404)" />
+      <docLink value="https://reactrouter.com/web/guides/quick-start" />
+      <description>
+        <![CDATA[
+          You can use the last <code>&lt;Route&gt;</code> in a <code>&lt;Switch&gt;</code> as a kind of "fallback" route, to catch 404 errors.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect,
+  useLocation
+} from "react-router-dom";
+
+export default function NoMatchExample() {
+  return (
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/old-match">Old Match, to be redirected</Link>
+          </li>
+          <li>
+            <Link to="/will-match">Will Match</Link>
+          </li>
+          <li>
+            <Link to="/will-not-match">Will Not Match</Link>
+          </li>
+          <li>
+            <Link to="/also/will/not/match">Also Will Not Match</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/old-match">
+            <Redirect to="/will-match" />
+          </Route>
+          <Route path="/will-match">
+            <WillMatch />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Home() {
+  return <h3>Home</h3>;
+}
+
+function WillMatch() {
+  return <h3>Matched!</h3>;
+}
+
+function NoMatch() {
+  let location = useLocation();
+
+  return (
+    <div>
+      <h3>
+        No match for <code>{location.pathname}</code>
+      </h3>
+    </div>
+  );
+}
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

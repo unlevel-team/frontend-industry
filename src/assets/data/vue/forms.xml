@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="forms">
+    <title value="Vue forms" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The Vue forms
+      ]]>
+    </description>
+    <concept name="head">
+      <title value="Basic Usage" />
+      <docLink value="https://v3.vuejs.org/guide/forms.html" />
+      <description>
+        <![CDATA[
+          You can use the <code>v-model</code> directive to create two-way data bindings on form input, textarea, and select elements. 
+          It automatically picks the correct way to update the element based on the input type. Although a bit magical, <code>v-model</code> is essentially syntax sugar for updating data on user input events, 
+          plus special care for some edge cases.<br>
+          <code>v-model</code> will ignore the initial <code>value</code>, <code>checked</code> or <code>selected</code> attributes found on any form elements. It will always treat the current active instance data as the source of truth. 
+          You should declare the initial value on the JavaScript side, inside the <code>data</code> option of your component.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- Text -->
+<input v-model="message" placeholder="edit me" />
+<p>Message is: {{ message }}</p>
+
+<!-- Multiline text -->
+<span>Multiline message is:</span>
+<p style="white-space: pre-line;">{{ message }}</p>
+<br />
+<textarea v-model="message" placeholder="add multiple lines"></textarea>
+
+<!-- Checkbox -->
+<input type="checkbox" id="checkbox" v-model="checked" />
+<label for="checkbox">{{ checked }}</label>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Multiple checkboxes, bound to the same array -->
+<div id="v-model-multiple-checkboxes">
+  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+  <label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+  <label for="john">John</label>
+  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+  <label for="mike">Mike</label>
+  <br />
+  <span>Checked names: {{ checkedNames }}</span>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      checkedNames: []
+    }
+  }
+}).mount('#v-model-multiple-checkboxes')
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Radio -->
+<div id="v-model-radiobutton">
+  <input type="radio" id="one" value="One" v-model="picked" />
+  <label for="one">One</label>
+  <br />
+  <input type="radio" id="two" value="Two" v-model="picked" />
+  <label for="two">Two</label>
+  <br />
+  <span>Picked: {{ picked }}</span>
+</div>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Dynamic options rendered with v-for -->
+<div id="v-model-select-dynamic" class="demo">
+  <select v-model="selected">
+    <option v-for="option in options" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      selected: 'A',
+      options: [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+      ]
+    }
+  }
+}).mount('#v-model-select-dynamic')
+        ]]>
+      </code>
+    </concept>
+    <concept name="value-bindings">
+      <title value="Value Bindings" />
+      <docLink value="https://v3.vuejs.org/guide/forms.html" />
+      <description>
+        <![CDATA[
+          For radio, checkbox and select options, the <code>v-model</code> binding values are usually static strings (or booleans for checkbox). <br>
+          But sometimes we may want to bind the value to a dynamic property on the current active instance. We can use <code>v-bind</code> to achieve that. In addition, 
+          using <code>v-bind</code> allows us to bind the input value to non-string values.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- `picked` is a string "a" when checked -->
+<input type="radio" v-model="picked" value="a" />
+
+<!-- `toggle` is either true or false -->
+<input type="checkbox" v-model="toggle" />
+
+<!-- `selected` is a string "abc" when the first option is selected -->
+<select v-model="selected">
+  <option value="abc">ABC</option>
+</select>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Checkbox -->
+<input type="checkbox" v-model="toggle" true-value="yes" false-value="no" />
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// when checked:
+vm.toggle === 'yes'
+// when unchecked:
+vm.toggle === 'no'
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Radio -->
+<input type="radio" v-model="pick" v-bind:value="a" />
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// when checked:
+vm.pick === vm.a
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Select options -->
+<select v-model="selected">
+  <!-- inline object literal -->
+  <option :value="{ number: 123 }">123</option>
+</select>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// when selected:
+typeof vm.selected // => 'object'
+vm.selected.number // => 123
+        ]]>
+      </code>
+    </concept>
+    <concept name="modifiers">
+      <title value="Modifiers" />
+      <docLink value="https://v3.vuejs.org/guide/forms.html" />
+      <description>
+        <![CDATA[
+          <ul>
+            <li>You can add the <code>lazy</code> modifier to instead sync after <code>change</code> events</li>
+            <li>If you want user input to be automatically typecast as a <code>number</code>, you can add the number modifier to your <code>v-model</code> managed inputs</li>
+            <li>If you want whitespace from user input to be trimmed automatically, you can add the <code>trim</code> modifier to your <code>v-model</code>-managed inputs</li>
+          </ul>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- synced after "change" instead of "input" -->
+<input v-model.lazy="msg" />
+
+<input v-model.number="age" type="number" />
+
+<input v-model.trim="msg" />
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>
