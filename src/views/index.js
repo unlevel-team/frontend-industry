@@ -4,7 +4,8 @@ import _configState from '../state/config.js';
 import stateLocation from '../state/location.js';
 import stateFramework from '../state/framework.js';
 import { ViewCore } from './view-core.js';
-import _pickerForFramework from '../components/pickerForFramework';
+import pickerForConcept from '../components/pickerForConcept';
+import pickerForFramework from '../components/pickerForFramework';
 
 const _VIEWS = {
   _env: {
@@ -16,7 +17,8 @@ const _VIEWS = {
     stateLocation.listenLocationChanges({ listener: _VIEWS._onLocationChanges });
     stateFramework.listenFrameworkChanges({ listener: _VIEWS._onFrameworkChanges });
 
-    _pickerForFramework.init();
+    pickerForConcept.init();
+    pickerForFramework.init();
     _VIEWS._initTopicsViews();
   },
 
@@ -26,7 +28,6 @@ const _VIEWS = {
     const { _env } = _VIEWS
 
     const _views = {};
-    const _viewsConfig = {};
     topics.forEach(_topic => {
       const _topicDATA = {
         topicName: _topic,
@@ -37,7 +38,6 @@ const _VIEWS = {
           _topicDATA.frameworks.push(_framework);
         }
       });
-      _viewsConfig[_topic] = _topicDATA;
       _views[_topic] = new ViewCore(_topicDATA);
       _views[_topic].init();
     });

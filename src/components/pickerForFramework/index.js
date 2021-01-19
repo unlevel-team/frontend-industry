@@ -5,7 +5,7 @@ import stateConfig from '../../state/config.js';
 import stateFrameworks from '../../state/framework.js';
 
 
-const _PICFRMWK = {
+const _PICKFRMWK = {
   _env: {
     myDIV: null,
     frameworks: [],
@@ -13,7 +13,7 @@ const _PICFRMWK = {
   },
 
   init: () => {
-    const { _env } = _PICFRMWK;
+    const { _env } = _PICKFRMWK;
     if (_env.myDIV !== null) { return; }
 
     _env.config = stateConfig.getConfig()['framework-picker'];
@@ -21,41 +21,41 @@ const _PICFRMWK = {
     _env.myDIV = document.createElement('div');
     _env.myDIV.classList.add("pickerForFramework");
 
-    stateFrameworks.listenFrameworkChanges({ listener: _PICFRMWK._listenerFrameworkChange });
+    stateFrameworks.listenFrameworkChanges({ listener: _PICKFRMWK._listenerFrameworkChange });
 
-    _PICFRMWK.update({ frameworks: [_env.config.default] });
-    _PICFRMWK._listenerFrameworkChange({ framework: _env.config.default }); // default framework
+    _PICKFRMWK.update({ frameworks: [_env.config.default] });
+    _PICKFRMWK._listenerFrameworkChange({ framework: _env.config.default }); // default framework
   },
 
   getComponent() {
-    const { _env } = _PICFRMWK;
+    const { _env } = _PICKFRMWK;
     return _env.myDIV;
   },
 
   _render: () => {
-    const { _env } = _PICFRMWK;
+    const { _env } = _PICKFRMWK;
     const _innerHTML = html`
-      ${_PICFRMWK._renderButtons()}
+      ${_PICKFRMWK._renderButtons()}
     `;
     render(_innerHTML, _env.myDIV);
   },
 
   _renderButtons() {
-    const { buttons } = _PICFRMWK._env.config;
+    const { buttons } = _PICKFRMWK._env.config;
     const _result = [];
 
     Object.keys(buttons).forEach(_k => {
-      _result.push( html `<button data-framework="${_k}" @click=${_PICFRMWK._handleButtonClick}>${buttons[_k].text}</button>` );
+      _result.push( html `<button data-framework="${_k}" @click=${_PICKFRMWK._handleButtonClick}>${buttons[_k].text}</button>` );
     });
     
     return _result;
   },
 
   update: ({ frameworks }) => {
-    const { _env } = _PICFRMWK;
+    const { _env } = _PICKFRMWK;
     _env.frameworks = frameworks;
 
-    _PICFRMWK._render();
+    _PICKFRMWK._render();
 
    if (_env.frameworks.length < 2) {  // hide all if there are less than 2 frameworks
     _env.myDIV.style.display = 'none';
@@ -80,7 +80,7 @@ const _PICFRMWK = {
   },
 
   _listenerFrameworkChange: (_data) => {
-    const { myDIV } = _PICFRMWK._env;
+    const { myDIV } = _PICKFRMWK._env;
     myDIV.querySelectorAll('button')
       .forEach((_button) => { _button.classList.remove('is-active'); });
     myDIV.querySelector(`button[data-framework="${_data.framework}"]`)
@@ -89,4 +89,4 @@ const _PICFRMWK = {
 
 };
 
-export default _PICFRMWK;
+export default _PICKFRMWK;

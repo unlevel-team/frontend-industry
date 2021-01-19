@@ -1,0 +1,31 @@
+.pickerForConcept fieldset {
+  border-radius: 11px;
+}
+
+.pickerForConcept legend {
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  font-family: press-start-2p;
+  font-size: 0.9rem;
+}
+
+.pickerForConcept button {
+  border: 0;
+  border-radius: 0.25rem;
+  background: var(--color-secondary-1-foreground);
+  color: var(--color-primary-background);
+  font-family: orbitron;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  cursor: pointer;
+}
+
+.pickerForConcept button:hover {
+  background: var(--color-secondary-1-detail-1);
+  color: var(--color-secondary-1-foreground);
+}

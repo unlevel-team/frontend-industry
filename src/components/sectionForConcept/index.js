@@ -1,23 +1,28 @@
+'use strict';
+
 import { html, render } from 'lit-html';
 
 
 export class SectionForConcept {
-  constructor({ data }) {
+  constructor({ name, data }) {
     this._env = {
       myDIV: null,
       data: {
+        name,
         title: null,
         docLink: null,
         description: null,
-        codeLanguage: null,
-        code: null,
       },
     };
 
-    if (data) { this.data = data; }
+    if (data) {
+      this.data = {
+        ...this.data,
+        ...data
+      };
+    }
 
     this.update = this.update.bind(this);
-
     this._init();
   }
 
@@ -25,6 +30,7 @@ export class SectionForConcept {
     const { _env } = this;
     _env.myDIV = document.createElement('section');
     _env.myDIV.classList.add("concept");
+    _env.myDIV.setAttribute("data-concept", _env.data.name);
   }
 
   get component() {
@@ -32,11 +38,11 @@ export class SectionForConcept {
     return _env.myDIV;
   }
 
-  set data({ title, docLink, description, codeLanguage, code, codes }) {
+  set data({ title, docLink, description, codes }) {
     const { _env } = this;
     _env.data = {
       ..._env.data,
-      title, docLink, description, codeLanguage, code, codes
+      title, docLink, description, codes
     };
   }
 

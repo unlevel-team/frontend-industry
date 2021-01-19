@@ -7,7 +7,7 @@ import stateTopics from '../state/topics.js';
 
 const _COMMON = {
   initView: ({ view }) => {
-    view._env = {
+    view._env = { // update the view environment ⚠️⚠️⚠️
       ...view._env,
       active: false,
       topicData: null,
@@ -44,7 +44,7 @@ const _COMMON = {
     if (topicData === null) { return; } // TODO: REVIEW CODE 🔍⚠️ Data is not initialized 
 
     topicData.conceptsOrder.forEach((_conceptName) => {
-      concepts[_conceptName] = new SectionForConcept({ data: topicData.concepts[_conceptName] });
+      concepts[_conceptName] = new SectionForConcept({ name: _conceptName, data: topicData.concepts[_conceptName] });
     });
   },
 
