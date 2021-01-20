@@ -16,14 +16,14 @@ const _COMMON = {
 
     view.activate = () => { view._env.active = true; };
     view.deactivate = () => { view._env.active = false; };
-    view.loadTopic = ({ framework }) => { _COMMON.loadTopic({ view, framework }); };
+    view.loadTopic = ({ context }) => { _COMMON.loadTopic({ view, context }); };
   },
 
-  loadTopic: ({ view, framework }) => {
+  loadTopic: ({ view, context }) => {
     const { _env } = view;
     const { topicName } = _env;
 
-    let _topic = stateTopics.getTopic({ framework, name: topicName });
+    let _topic = stateTopics.getTopic({ context, name: topicName });
     if (_topic !== null) {
       _env.topicData = _topic;
       _COMMON.initConcepts(_env);
@@ -31,7 +31,7 @@ const _COMMON = {
       return;
     }
 
-    stateTopics.loadTopic({ framework, name: topicName })
+    stateTopics.loadTopic({ context, name: topicName })
     .then(({ topic }) => {
       _env.topicData = topic;
       _COMMON.initConcepts(_env);

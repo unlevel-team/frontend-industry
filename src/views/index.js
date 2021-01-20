@@ -1,11 +1,12 @@
 'use strict';
 
-import _configState from '../state/config.js';
+import configState from '../state/config.js';
 import stateLocation from '../state/location.js';
-import stateFramework from '../state/framework.js';
+import stateContext from '../state/context.js';
 import { ViewCore } from './view-core.js';
 import pickerForConcept from '../components/pickerForConcept';
-import pickerForFramework from '../components/pickerForFramework';
+import pickerForContext from '../components/pickerForContext';
+
 
 const _VIEWS = {
   _env: {
@@ -15,27 +16,27 @@ const _VIEWS = {
 
   init: () => {
     stateLocation.listenLocationChanges({ listener: _VIEWS._onLocationChanges });
-    stateFramework.listenFrameworkChanges({ listener: _VIEWS._onFrameworkChanges });
+    stateContext.listenContextChanges({ listener: _VIEWS._onContextChanges });
 
     pickerForConcept.init();
-    pickerForFramework.init();
+    pickerForContext.init();
     _VIEWS._initTopicsViews();
   },
 
   _initTopicsViews: () => {
-    const _config = _configState.getConfig();
-    const { topics, frameworks } = _config;
+    const _config = configState.getConfig();
+    const { topics, contexts } = _config;
     const { _env } = _VIEWS
 
     const _views = {};
     topics.forEach(_topic => {
       const _topicDATA = {
         topicName: _topic,
-        frameworks: [],
+        contexts: [],
       };
-      frameworks.forEach(_framework => {
-        if (_config['framework-config'][_framework].topics[_topic] !== undefined) {
-          _topicDATA.frameworks.push(_framework);
+      contexts.forEach(_context => {
+        if (_config['contexts-config'][_context].topics[_topic] !== undefined) {
+          _topicDATA.contexts.push(_context);
         }
       });
       _views[_topic] = new ViewCore(_topicDATA);
@@ -61,19 +62,19 @@ const _VIEWS = {
     const _view = _VIEWS.getView({ name: title });
     _view.activate();
 
-    const framework = stateFramework.getFramework();
-    if (_view._env.frameworks.includes(framework)) {
-      _view.loadTopic({ framework });
+    const context = stateContext.getContext();
+    if (_view._env.contexts.includes(context)) {
+      _view.loadTopic({ context });
     } else {
-      stateFramework.changeFramework({ name: _view._env.frameworks[0] });  // Load 'default' framework
+      stateContext.changeContext({ name: _view._env.contexts[0] });  // Load 'default' context
     }
   },
 
-  _onFrameworkChanges(_options) {
+  _onContextChanges(_options) {
     const { activeView } = _VIEWS._env;
-    const { framework } = _options;
+    const { context } = _options;
     if (activeView === null) { return; }
-    _VIEWS.getView({ name: activeView }).loadTopic({ framework });
+    _VIEWS.getView({ name: activeView }).loadTopic({ context });
   },
 };
 

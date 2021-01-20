@@ -26,20 +26,20 @@ const _TOPICS = {
     }});
   },
 
-  loadTopic: ({ framework, name }) => {
+  loadTopic: ({ context, name }) => {
     const { topics, config } = _TOPICS._env;
 
     return new Promise((_resolve, _reject) => {
       try {
-        if (_TOPICS.getTopic({ framework, name }) !== null) {
-          throw Error(`Topic ${framework}/${name} already loaded.`);
+        if (_TOPICS.getTopic({ context, name }) !== null) {
+          throw Error(`Topic ${context}/${name} already loaded.`);
         }
-        const url = config['framework-config'][framework].topics[name]['data-file'];
+        const url = config['contexts-config'][context].topics[name]['data-file'];
         dataLoader.loadData({ url: `./assets/data/${url}` })
         .then(_data => {
-          topics[name][framework] = _data.topics[name];
-          _TOPICS._notifyTopicChange({ framework, name });
-          _resolve({ topic: topics[name][framework] });
+          topics[name][context] = _data.topics[name];
+          _TOPICS._notifyTopicChange({ context, name });
+          _resolve({ topic: topics[name][context] });
         })
         .catch(_error => {throw _error});
       } catch (_error) {
@@ -48,19 +48,19 @@ const _TOPICS = {
     });
   },
 
-  getTopic: ({ framework, name }) => {
+  getTopic: ({ context, name }) => {
     const { topics } = _TOPICS._env;
 
     if (topics[name] === undefined) {
       throw Error(`Topic ${name} not found.`);
     }
 
-    return topics[name][framework] || null;
+    return topics[name][context] || null;
   },
 
-  _notifyTopicChange: ({ framework, name }) => {
+  _notifyTopicChange: ({ context, name }) => {
     const { topics, subject } = _TOPICS._env;
-    subject.next({ topic: topics[name][framework], framework, name });
+    subject.next({ topic: topics[name][context], context, name });
   },
 
   listenTopicsChanges: ({ listener }) => {

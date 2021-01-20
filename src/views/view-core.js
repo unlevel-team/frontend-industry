@@ -1,7 +1,7 @@
 'use strict';
 
 import { html, render } from 'lit-html';
-import pickerForFramework from '../components/pickerForFramework';
+import pickerForContext from '../components/pickerForContext';
 import pickerForConcept from '../components/pickerForConcept';
 import viewsCOMMON from './views-common.js';
 
@@ -9,11 +9,11 @@ import viewsCOMMON from './views-common.js';
  * The core structure for a 'View'
  */
 export class ViewCore {
-  constructor({ topicName, frameworks }) {
+  constructor({ topicName, contexts }) {
     this._env = {
       myDIV: null,
       topicName, 
-      frameworks,
+      contexts,
     };
 
     this.init = this.init.bind(this);
@@ -23,7 +23,7 @@ export class ViewCore {
 
   init() {
     const { _env } = this;
-    const { topicName: topic, frameworks } = _env;
+    const { topicName: topic, contexts } = _env;
     _env.myDIV = document.createElement('article');
     _env.myDIV.classList.add("topic");
     _env.myDIV.setAttribute("data-topic", _env.topicName);
@@ -31,7 +31,7 @@ export class ViewCore {
     viewsCOMMON.initView({
       view: this,
       topic,
-      frameworks,
+      contexts,
     });
   }
 
@@ -42,7 +42,7 @@ export class ViewCore {
     const { title } = _env.topicData || {};
     const _innerHTML = html`
       <h1>${title}</h1>
-      ${pickerForFramework.getComponent()}
+      ${pickerForContext.getComponent()}
       ${pickerForConcept.getComponent()}
       ${viewsCOMMON.renderConcepts(_env)}
     `;
@@ -54,7 +54,7 @@ export class ViewCore {
   }
 
   update() {
-    pickerForFramework.update(this._env);
+    pickerForContext.update(this._env);
     pickerForConcept.update({ view: this });
     viewsCOMMON.updateConcepts(this._env);
     this._render();

@@ -1,9 +1,9 @@
 {
   "version": "0.0.1",
-  "frameworks": ["w3c", "react", "vue"],
+  "contexts": ["w3c", "react", "vue"],
   "topics": ["html-basics", "templates", "components", "state-lifecycle", "conditional-rendering", "lists", 
     "forms", "event-handling", "routing", "flux", "style"],
-  "framework-config": {
+  "contexts-config": {
     "w3c": {
       "topics": {
         "html-basics": {
@@ -138,7 +138,7 @@
       "style": { "text": "Style", "url": "./style" }
     }
   },
-  "framework-picker": {
+  "context-picker": {
     "default": "w3c",
     "buttons": {
       "w3c": { "text": "W3C" },

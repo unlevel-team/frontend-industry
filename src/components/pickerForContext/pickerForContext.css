@@ -1,4 +1,4 @@
-.pickerForFramework button {
+.pickerForContext button {
   border: 0;
   border-radius: 0.25rem;
   background: var(--color-secondary-1-detail-1);
@@ -13,7 +13,7 @@
   cursor: pointer;
 }
 
-.pickerForFramework button.is-active {
+.pickerForContext button.is-active {
   background: var(--color-secondary-1-detail-3);
   color: var(--color-secondary-1-detail-2);
 }

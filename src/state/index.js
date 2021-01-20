@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import _LOCATION from './location.js';
 import _CONFIG from './config.js';
 import _TOPICS from './topics.js';
-import _FRAMEWORK from './framework.js';
+import _CONTEXT from './context.js';
 
 
 const _STATE = {
@@ -20,8 +20,8 @@ const _STATE = {
     states.config = _CONFIG;
     _TOPICS.init({ subject: new Subject() });
     states.topics = _TOPICS;
-    _FRAMEWORK.init({ subject: new Subject() });
-    states.framework = _FRAMEWORK;
+    _CONTEXT.init({ subject: new Subject() });
+    states.context = _CONTEXT;
   },
 
   getState: ({ name }) => {
