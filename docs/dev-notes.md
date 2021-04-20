@@ -3,10 +3,10 @@
 - HOT MODULE REPLACEMENT !!!
 
 ## TODO
-- Sidebar styles { fonts }
-- Header content and styles
-- Modal for information (styles??)
-- Vue templates class ???
+
+### Add header buttons
+
+### Add modal at 'header'
 
 ## References
 https://v3.vuejs.org/guide/template-syntax.html

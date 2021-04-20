@@ -22,11 +22,9 @@
   <% } %> -->
 
   <link href="./libs/prism/prism.css" rel="stylesheet" /> <!-- Library CSS Prism -->
-  <link href="./libs/tingle/tingle.min.css" rel="stylesheet" /> <!-- Library CSS Tingle -->
 </head>
 <body>
 <script src="./libs/prism/prism.js"></script> <!-- Library JS Prism -->
-<script src="./libs/tingle/tingle.min.js"></script> <!-- Library JS Alertify -->
 
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
 <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>

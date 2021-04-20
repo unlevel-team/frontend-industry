@@ -108,6 +108,7 @@
     }
   },
   "router": {
+    "basePath": "/",
     "default": "/html-basics",
     "routes": {
       "html-basics": { "url": "/html-basics" },

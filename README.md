@@ -1,15 +1,25 @@
-# 🚀 Welcome to your new awesome project!
+# Frontend insutry
 
-This project has been created using **webpack scaffold**, you can now run
+## Install dependencies
+
+```
+npm install
+```
+
+## Update dependencies
+
+```
+npm update
+```
+
+## For development
+
+```
+npm run start:dev
+```
+
+## Build for production
 
 ```
 npm run build
 ```
-
-or
-
-```
-yarn build
-```
-
-to bundle your application

@@ -53,6 +53,7 @@
 }
 
 /* Modal ------------------------------------------------------------------ */
+/*
 div.modal-info {
   background-color: var(--color-secondary-1-background);
 }
@@ -83,3 +84,21 @@ div.modal-info .tingle-btn--primary {
   background-color: var(--color-primary-foreground);
   color: var(--color-secondary-1-background);
 }
+*/
+
+.header .modal.info .modal-header {
+  background-color: var(--color-secondary-2-detail-2);
+  color: var(--color-secondary-1-detail-3);
+
+  font-family: 'orbitron';
+  font-size: 0.87em;
+}
+
+.header .modal.info .modal-body {
+  background-color: var(--color-primary-detail-3);
+  color: var(--color-secondary-2-foreground);
+
+  font-family: 'sourceCodePro';
+  font-size: 1em;
+}
+

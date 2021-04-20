@@ -1,12 +1,14 @@
 'use strict';
 
 
+const _ENV = {
+  url: './assets/config.json',
+  subject: null,
+  config: null,
+};
+
 const _CONFIG = {
-  _env: {
-    url: './assets/config.json',
-    subject: null,
-    config: null,
-  },
+  _env: _ENV,
 
   init: ({ subject }) => {
     _CONFIG._env.subject = subject;

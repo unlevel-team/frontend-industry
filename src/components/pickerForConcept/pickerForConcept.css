@@ -26,6 +26,6 @@
 }
 
 .pickerForConcept button:hover {
-  background: var(--color-secondary-1-detail-1);
-  color: var(--color-secondary-1-foreground);
+  background: var(--color-secondary-2-foreground);
+  color: var(--color-primary-detail-3);
 }
