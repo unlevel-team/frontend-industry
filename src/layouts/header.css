@@ -53,39 +53,7 @@
 }
 
 /* Modal ------------------------------------------------------------------ */
-/*
-div.modal-info {
-  background-color: var(--color-secondary-1-background);
-}
-
-div.modal-info .tingle-modal-box__content {
-  background-color: var(--color-primary-background);
-  color: var(--color-secondary-1-foreground);
-  font-family: 'special-elite';
-}
-
-div.modal-info .tingle-modal-box__content h1 {
-  color: var(--color-primary-foreground);
-  font-family: 'black-ops-one';
-  font-size: 2em;
-  font-weight: normal;
-  letter-spacing: 0.05em;
-}
-
-div.modal-info .tingle-modal-box__footer {
-  background-color: var(--color-primary-detail-3);
-}
-
-div.modal-info .tingle-btn {
-  font-family: 'orbitron';
-}
-
-div.modal-info .tingle-btn--primary {
-  background-color: var(--color-primary-foreground);
-  color: var(--color-secondary-1-background);
-}
-*/
-
+/* .header #modal-info .modal-header { */
 .header .modal.info .modal-header {
   background-color: var(--color-secondary-2-detail-2);
   color: var(--color-secondary-1-detail-3);
@@ -94,6 +62,7 @@ div.modal-info .tingle-btn--primary {
   font-size: 0.87em;
 }
 
+/* .header #modal-info .modal-body { */
 .header .modal.info .modal-body {
   background-color: var(--color-primary-detail-3);
   color: var(--color-secondary-2-foreground);
@@ -102,3 +71,7 @@ div.modal-info .tingle-btn--primary {
   font-size: 1em;
 }
 
+.header .modal.info .modal-body a {
+  background-color: var(--color-secondary-1-detail-3);
+  color: var(--color-secondary-2-foreground);
+}
