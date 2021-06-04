@@ -83,7 +83,7 @@ const _HEADER = {
         </div>
         <div class="modal-body">
           <p>This project is open source</p>
-          <p>You can find the code in <a href="">this repository</a></p>
+          <p>You can find the code in <a href="https://github.com/unlevel-team/frontend-industry" target="_blank">this repository</a></p>
           <!--
           <p>
             <button type="button" @click="${() => _ENV.modalInfo.close()}">Close</button>
