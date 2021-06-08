@@ -108,7 +108,7 @@
     }
   },
   "router": {
-    "basePath": "/",
+    "basePath": "https://unlevel-team.github.io/",
     "default": "/html-basics",
     "routes": {
       "html-basics": { "url": "/html-basics" },
