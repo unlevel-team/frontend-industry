@@ -110,7 +110,7 @@ const _HEADER = {
   },
 
   _onClickCode: (_event) => {
-    if (_ENV.modalCode === null) {  // Initialize modal for info
+    if (_ENV.modalCode === null) {  // Initialize modal for code
       _ENV.modalCode = new Modal({ element: _ENV.myDIV.querySelector('#modal-code') });  // TODO: REVIEW CODE 🔍⚠️
     }
     _ENV.modalCode.open();
