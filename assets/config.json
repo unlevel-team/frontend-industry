@@ -1,0 +1,150 @@
+{
+  "version": "0.0.1",
+  "contexts": ["w3c", "react", "vue"],
+  "topics": ["html-basics", "templates", "components", "state-lifecycle", "conditional-rendering", "lists", 
+    "forms", "event-handling", "routing", "flux", "style"],
+  "contexts-config": {
+    "w3c": {
+      "topics": {
+        "html-basics": {
+          "data-file": "w3c/html-basics.xml"
+        },
+        "templates": {
+          "data-file": "w3c/templates.xml"
+        },
+        "components": {
+          "data-file": "w3c/components.xml"
+        },
+        "state-lifecycle": {
+          "data-file": "w3c/state-lifecycle.xml"
+        },
+        "conditional-rendering": {
+          "data-file": "w3c/conditional-rendering.xml"
+        },
+        "lists": {
+          "data-file": "w3c/lists.xml"
+        },
+        "forms": {
+          "data-file": "w3c/forms.xml"
+        },
+        "event-handling": {
+          "data-file": "w3c/event-handling.xml"
+        },
+        "routing": {
+          "data-file": "w3c/routing.xml"
+        },
+        "flux": {
+          "data-file": "w3c/flux.xml"
+        }
+      }
+    },
+    "react": {
+      "topics": {
+        "templates": {
+          "data-file": "react/templates.xml"
+        },
+        "components": {
+          "data-file": "react/components.xml"
+        },
+        "state-lifecycle": {
+          "data-file": "react/state-lifecycle.xml"
+        },
+        "conditional-rendering": {
+          "data-file": "react/conditional-rendering.xml"
+        },
+        "lists": {
+          "data-file": "react/lists.xml"
+        },
+        "forms": {
+          "data-file": "react/forms.xml"
+        },
+        "event-handling": {
+          "data-file": "react/event-handling.xml"
+        },
+        "routing": {
+          "data-file": "react/routing.xml"
+        },
+        "flux": {
+          "data-file": "react/flux.xml"
+        },
+        "style": {
+          "data-file": "react/style.xml"
+        }
+      }
+    },
+    "vue": {
+      "topics": {
+        "templates": {
+          "data-file": "vue/templates.xml"
+        },
+        "components": {
+          "data-file": "vue/components.xml"
+        },
+        "state-lifecycle": {
+          "data-file": "vue/state-lifecycle.xml"
+        },
+        "conditional-rendering": {
+          "data-file": "vue/conditional-rendering.xml"
+        },
+        "lists": {
+          "data-file": "vue/lists.xml"
+        },
+        "forms": {
+          "data-file": "vue/forms.xml"
+        },
+        "event-handling": {
+          "data-file": "vue/event-handling.xml"
+        },
+        "routing": {
+          "data-file": "vue/routing.xml"
+        },
+        "flux": {
+          "data-file": "vue/flux.xml"
+        },
+        "style": {
+          "data-file": "vue/style.xml"
+        }
+      }
+    }
+  },
+  "router": {
+    "basePath": "/",
+    "default": "/html-basics",
+    "routes": {
+      "html-basics": { "url": "/html-basics" },
+      "templates": { "url": "/templates" },
+      "components": { "url": "/components" },
+      "state-lifecycle": { "url": "/state-lifecycle" },
+      "conditional-rendering": { "url": "/conditional-rendering" },
+      "lists": { "url": "/lists" },
+      "forms": { "url": "/forms" },
+      "event-handling": { "url": "/event-handling" },
+      "routing": { "url": "/routing" },
+      "flux": { "url": "/flux" },
+      "style": { "url": "/style" }
+    }
+  },
+  "sidebar": {
+    "links": {
+      "html-basics": { "text": "HTML basics", "url": "./html-basics" },
+      "templates": { "text": "Templates", "url": "./templates" },
+      "components": { "text": "Components", "url": "./components" },
+      "state-lifecycle": { "text": "State and lifecycle", "url": "./state-lifecycle" },
+      "conditional-rendering": { "text": "Conditional rendering", "url": "./conditional-rendering" },
+      "lists": { "text": "Lists", "url": "./lists" },
+      "forms": { "text": "Forms", "url": "./forms" },
+      "event-handling": { "text": "Handling events", "url": "./event-handling" },
+      "routing": { "text": "Routing", "url": "./routing" },
+      "flux": { "text": "Flux", "url": "./flux" },
+      "style": { "text": "Style", "url": "./style" }
+    }
+  },
+  "context-picker": {
+    "default": "w3c",
+    "buttons": {
+      "w3c": { "text": "W3C" },
+      "react": { "text": "React" },
+      "vue": { "text": "Vue" }
+    }
+  }
+}

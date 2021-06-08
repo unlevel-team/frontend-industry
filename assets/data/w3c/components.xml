@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="components">
+    <title value="Custom elements" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The HTML custom elements
+      ]]>
+    </description>
+    <concept name="custom-element">
+      <title value="Define a custom element" />
+      <docLink value="https://developers.google.com/web/fundamentals/web-components/customelements" />
+      <description>
+        <![CDATA[
+          Defining a new element
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+class AppDrawer extends HTMLElement {
+
+  // A getter/setter for an open property.
+  get open() {
+    return this.hasAttribute('open');
+  }
+
+  set open(val) {
+    // Reflect the value of the open property as an HTML attribute.
+    if (val) {
+      this.setAttribute('open', '');
+    } else {
+      this.removeAttribute('open');
+    }
+    this.toggleDrawer();
+  }
+
+  // A getter/setter for a disabled property.
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+
+  set disabled(val) {
+    // Reflect the value of the disabled property as an HTML attribute.
+    if (val) {
+      this.setAttribute('disabled', '');
+    } else {
+      this.removeAttribute('disabled');
+    }
+  }
+
+  // Can define constructor arguments if you wish.
+  constructor() {
+    // If you define a constructor, always call super() first!
+    // This is specific to CE and required by the spec.
+    super();
+
+    // Setup a click listener on <app-drawer> itself.
+    this.addEventListener('click', e => {
+      // Don't toggle the drawer if it's disabled.
+      if (this.disabled) {
+        return;
+      }
+      this.toggleDrawer();
+    });
+  }
+
+  connectedCallback() {
+    ...
+  }
+
+  disconnectedCallback() {
+    ...
+  }
+  
+  static get observedAttributes() {
+    return ['disabled', 'open'];
+  }
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    ...
+  }
+
+  toggleDrawer() {
+    ...
+  }
+}
+
+customElements.define('app-drawer', AppDrawer);
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

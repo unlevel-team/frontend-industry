@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="routing">
+    <title value="Vue Router" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The HTML basics
+      ]]>
+    </description>
+    <concept name="simple-routing">
+      <title value="Simple Routing from Scratch" />
+      <docLink value="https://v3.vuejs.org/guide/routing.html" />
+      <description>
+        <![CDATA[
+          If you only need very simple routing and do not wish to involve a full-featured router library, you can do so by dynamically rendering a page-level component.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const NotFoundComponent = { template: '<p>Page not found</p>' }
+const HomeComponent = { template: '<p>Home page</p>' }
+const AboutComponent = { template: '<p>About page</p>' }
+
+const routes = {
+  '/': HomeComponent,
+  '/about': AboutComponent
+}
+
+const SimpleRouter = {
+  data: () => ({
+    currentRoute: window.location.pathname
+  }),
+
+  computed: {
+    CurrentComponent() {
+      return routes[this.currentRoute] || NotFoundComponent
+    }
+  },
+
+  render() {
+    return Vue.h(this.CurrentComponent)
+  }
+}
+
+Vue.createApp(SimpleRouter).mount('#app')
+        ]]>
+      </code>
+    </concept>
+    <concept name="getting-started">
+      <title value="Getting started" />
+      <docLink value="https://next.router.vuejs.org/guide/" />
+      <description>
+        <![CDATA[
+          Creating a Single-page Application with Vue + Vue Router feels natural: with Vue.js, we are already composing our application with components. 
+          When adding Vue Router to the mix, all we need to do is map our components to the routes and let Vue Router know where to render them. <br>
+          By calling <code>app.use(router)</code>, we get access to it as <code>this.$router</code> as well as the current route as <code>this.$route</code> inside of any component
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vue-router@4"></script>
+
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <!-- use the router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will render an `<a>` tag with the correct `href` attribute -->
+    <router-link to="/">Go to Home</router-link>
+    <router-link to="/about">Go to About</router-link>
+  </p>
+  <!-- route outlet -->
+  <!-- component matched by the route will render here -->
+  <router-view></router-view>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// 1. Define route components.
+// These can be imported from other files
+const Home = { template: '<div>Home</div>' }
+const About = { template: '<div>About</div>' }
+
+// 2. Define some routes
+// Each route should map to a component.
+// We'll talk about nested routes later.
+const routes = [
+  { path: '/', component: Home },
+  { path: '/about', component: About },
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = VueRouter.createRouter({
+  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+  history: VueRouter.createWebHashHistory(),
+  routes, // short for `routes: routes`
+})
+
+// 5. Create and mount the root instance.
+const app = Vue.createApp({})
+// Make sure to _use_ the router instance to make the
+// whole app router-aware.
+app.use(router)
+
+app.mount('#app')
+
+// Now the app has started!
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Home.vue
+export default {
+  computed: {
+    username() {
+      // We will see what `params` is shortly
+      return this.$route.params.username
+    },
+  },
+  methods: {
+    goToDashboard() {
+      if (isAuthenticated) {
+        this.$router.push('/dashboard')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+  },
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Home.vue
+export default {
+  computed: {
+    username() {
+      // We will see what `params` is shortly
+      return this.$route.params.username
+    },
+  },
+  methods: {
+    goToDashboard() {
+      if (isAuthenticated) {
+        this.$router.push('/dashboard')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+  },
+}
+        ]]>
+      </code>
+    </concept>
+
+
+    <concept name="dynamic-route-matching-params">
+      <title value="Dynamic Route Matching with Params" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/dynamic-matching.html" />
+      <description>
+        <![CDATA[
+          Very often we will need to map routes with the given pattern to the same component. For example we may have a User component which should be rendered for 
+          all users but with different user IDs. In Vue Router we can use a dynamic segment in the path to achieve that, we call that a param
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const User = {
+  template: '<div>User</div>',
+}
+
+// these are passed to `createRouter`
+const routes = [
+  // dynamic segments start with a colon
+  { path: '/users/:id', component: User },
+]
+
+const User = {
+  template: '<div>User {{ $route.params.id }}</div>',
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="reacting-to-params-change">
+      <title value="Reacting to Params Changes" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/dynamic-matching.html" />
+      <description>
+        <![CDATA[
+          One thing to note when using routes with params is that when the user navigates from <code>/users/johnny</code> to <code>/users/jolyne</code>, the same component instance will be reused. 
+          Since both routes render the same component, this is more efficient than destroying the old instance and then creating a new one. However, 
+          this also means that the lifecycle hooks of the component will not be called.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const User = {
+  template: '...',
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        // react to route changes...
+      }
+    )
+  },
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// Or, use the beforeRouteUpdate navigation guard, which also allows to cancel the navigation
+const User = {
+  template: '...',
+  async beforeRouteUpdate(to, from) {
+    // react to route changes...
+    this.userData = await fetchUser(to.params.id)
+  },
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="catch-404-not-found-route">
+      <title value="Catch all / 404 Not found Route" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/dynamic-matching.html" />
+      <description>
+        <![CDATA[
+          Regular params will only match characters in between url fragments, separated by <code>/</code>. If we want to match anything, 
+          we can use a custom param regexp by adding the regexp inside parentheses right after the param
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const routes = [
+  // will match everything and put it under `$route.params.pathMatch`
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+  // will match anything starting with `/user-` and put it under `$route.params.afterUser`
+  { path: '/user-:afterUser(.*)', component: UserGeneric },
+]
+
+// In this specific scenario we are using a custom regexp between parentheses and marking the pathMatch param as optionally repeatable. 
+// This is to allows us to directly navigate to the route if we need to by splitting the path into an array
+this.$router.push({
+  name: 'NotFound',
+  params: { pathMatch: this.$route.path.split('/') },
+})
+        ]]>
+      </code>
+    </concept>
+    <concept name="custom-regexp-in-params">
+      <title value="Custom Regexp in params" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/route-matching-syntax.html" />
+      <description>
+        <![CDATA[
+          When defining a param like <code>:userId</code>, we internally use the following regexp <code>([^/]+)</code> (at least one character that isn't a slash <code>/</code>) to extract params from URLs. 
+          This works well unless you need to differentiate two routes based on the param content. Imagine two routes <code>/:orderId</code> and <code>/:productName</code>, 
+          both would match the exact same URLs, so we need a way to differentiate them. The easiest way would be to add a static section to the path that differentiates them.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const routes = [
+  // matches /o/3549
+  { path: '/o/:orderId' },
+  // matches /p/books
+  { path: '/p/:productName' },
+]
+
+const routes = [
+  // /:orderId -> matches only numbers
+  { path: '/:orderId(\\d+)' },
+  // /:productName -> matches anything else
+  { path: '/:productName' },
+]
+        ]]>
+      </code>
+    </concept>
+    <concept name="repereable-params">
+      <title value="Repeatable params" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/route-matching-syntax.html" />
+      <description>
+        <![CDATA[
+          If you need to match routes with multiple sections like <code>/first/second/third</code>, you should mark a param as repeatable with <code>*</code> (0 or more) and <code>+</code> (1 or more)
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const routes = [
+  // /:chapters -> matches /one, /one/two, /one/two/three, etc
+  { path: '/:chapters+' },
+  // /:chapters -> matches /, /one, /one/two, /one/two/three, etc
+  { path: '/:chapters*' },
+]
+
+// given { path: '/:chapters*', name: 'chapters' },
+router.resolve({ name: 'chapters', params: { chapters: [] } }).href
+// produces /
+router.resolve({ name: 'chapters', params: { chapters: ['a', 'b'] } }).href
+// produces /a/b
+
+// given { path: '/:chapters+', name: 'chapters' },
+router.resolve({ name: 'chapters', params: { chapters: [] } }).href
+// throws an Error because `chapters` is empty
+
+// These can also be combined with custom Regexp by adding them after the closing parentheses
+const routes = [
+  // only match numbers
+  // matches /1, /1/2, etc
+  { path: '/:chapters(\\d+)+' },
+  // matches /, /1, /1/2, etc
+  { path: '/:chapters(\\d+)*' },
+]
+        ]]>
+      </code>
+    </concept>
+    <concept name="optional-parameters">
+      <title value="Optional parameters" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/route-matching-syntax.html" />
+      <description>
+        <![CDATA[
+          You can also mark a parameter as optional by using the <code>?</code> modifier (0 or 1):
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const routes = [
+  // will match /users and /users/posva
+  { path: '/users/:userId?' },
+  // will match /users and /users/42
+  { path: '/users/:userId(\\d+)?' },
+]
+        ]]>
+      </code>
+    </concept>
+    <concept name="nested-routes">
+      <title value="Nested Routes" />
+      <docLink value="https://next.router.vuejs.org/guide/essentials/nested-routes.html" />
+      <description>
+        <![CDATA[
+          Some application's UIs are composed of components that are nested multiple levels deep. In this case, it is very common that the segments of a 
+          URL corresponds to a certain structure of nested components. <br>
+          A rendered component can also contain its own, nested <code>&lt;router-view&gt;</code>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="app">
+  <router-view></router-view>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const User = {
+  template: '<div>User {{ $route.params.id }}</div>',
+}
+
+// these are passed to `createRouter`
+const routes = [{ path: '/user/:id', component: User }]
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const User = {
+  template: `
+    <div class="user">
+      <h2>User {{ $route.params.id }}</h2>
+      <router-view></router-view>
+    </div>
+  `,
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const routes = [
+  {
+    path: '/user/:id',
+    component: User,
+    children: [
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: 'profile',
+        component: UserProfile,
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'posts',
+        component: UserPosts,
+      },
+    ],
+  },
+]
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

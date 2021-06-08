@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="state-lifecycle">
+    <title value="W3C state and lifecycle" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        State and lifecycle for a custom element
+      ]]>
+    </description>
+    <concept name="attributes">
+      <title value="Attributes" />
+      <docLink value="https://itnext.io/handling-data-with-web-components-9e7e4a452e6e" />
+      <description>
+        <![CDATA[
+Attributes are the easiest way to pass data into a custom element. 
+<ul>
+  <li>Can be set through the HTML and JavaScript, using <code>getAttribute</code> and <code>setAttribute.</code></li>
+  <li>Only work with strings.</li>
+  <li>Can be observed.</li>
+  <li>Very easy and straight-forward to use.</li>
+</ul>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<custom-list filter="some filter"></custom-list>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+img.setAttribute("src", "new-image.jpg");
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+class CustomList extends HTMLElement {
+  constructor() {
+    super();
+    console.log(this.getAttribute("filter"));
+  }
+  static get observedAttributes() {
+    return ["filter"];
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    // do something when an attribute has changed
+    if (oldValue === newValue) {
+      return;
+    }
+  }
+}
+customElements.define("custom-list", CustomList);
+        ]]>
+      </code>
+    </concept>
+    <concept name="properties">
+      <title value="Properties" />
+      <docLink value="https://itnext.io/handling-data-with-web-components-9e7e4a452e6e" />
+      <description>
+        <![CDATA[
+A property is like a variable which is bound to an object.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+class CustomList extends HTMLElement {
+  constructor() {
+    super();
+   
+    this._items = [];
+  }
+  set items(value) {
+    this._items = value;
+  }
+  
+  get items() {
+    return this._items;
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+var list = document.querySelector("custom-list");
+list.items = [1, 2, 3];
+console.log(list.items); // -> [1, 2, 3]
+        ]]>
+      </code>
+    </concept>
+    <concept name="lifecycle">
+      <title value="Lifecycle hooks" />
+      <docLink value="https://ultimatecourses.com/blog/lifecycle-hooks-in-web-components" />
+      <description>
+        <![CDATA[
+The following lifecycle hooks are available:
+<ul>
+  <li>constructor()</li>
+  <li>connectedCallback()</li>
+  <li>disconnectedCallback()</li>
+  <li>attributeChangedCallback(name, oldValue, newValue)</li>
+  <li>adoptedCallback()</li>
+</ul>
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+class MyCustomElement extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    ...
+  }
+  
+  disconnectedCallback() {
+    ...
+  }
+  
+  attributeChangedCallback(name, oldValue, newValue) {
+    ...
+  }
+  
+  adoptedCallback() {
+    ...
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+class MyCustomElement extends HTMLElement {
+  ...
+  
+  connectedCallback() {
+    console.log('connected');
+  }
+}
+
+customElements.define('my-custom-element', MyCustomElement);
+
+const myCustomElement = new MyCustomElement();
+
+document.body.appendChild(myCustomElement);
+document.body.appendChild(myCustomElement);
+
+// result:
+// 'connected'
+// 'connected'
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+class MyCustomElement extends HTMLElement {
+  ...
+  
+  disconnectedCallback() {
+    console.log('disconnected from the DOM');
+  }
+}
+
+customElements.define('my-custom-element', MyCustomElement);
+
+document.querySelector('my-custom-element').remove(); // 'disconnected from the DOM'
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+class MyCustomElement extends HTMLElement {
+  ...
+  
+  static get observedAttributes() {
+    return ['prop1', 'prop2', 'prop3'];
+  }
+  
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log(`${name}'s value has been changed from ${oldValue} to ${newValue}`);
+  }
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+adoptedCallback()
+
+An element can be adopted into a new document (i.e. someone called document.adoptNode(element)) and has a very specific use case. In general, 
+this will only occur when dealing with <iframe/> elements where each iframe has its own DOM, but when it happens the adoptedCallback lifecycle hook is triggered. 
+We can use it to interact with the owner document, the main document or other elements.
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

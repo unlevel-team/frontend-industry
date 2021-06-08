@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="html-basics">
+    <title value="HTML Basics" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The HTML basics
+      ]]>
+    </description>
+    <concept name="head">
+      <title value="The Head Element" />
+      <docLink value="https://www.w3schools.com/html/html_head.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;head&gt;</code> element is a container for metadata (data about data) and is placed between the <code>&lt;html&gt;</code> tag and the <code>&lt;body&gt;</code> tag.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Meaningful Page Title</title>
+</head>
+<body>
+
+The content of the document......
+
+</body>
+</html>
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

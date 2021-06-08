@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="state-lifecycle">
+    <title value="Vue state and lifecycle" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        State and lifecycle for a Vue component
+      ]]>
+    </description>
+    <concept name="data-properties">
+      <title value="Data properties" />
+      <docLink value="https://v3.vuejs.org/guide/data-methods.html" />
+      <description>
+        <![CDATA[
+          The <code>data</code> option for a component is a function. Vue calls this function as part of creating a new component instance. It should return an object, which Vue will then wrap in its reactivity system and store on the component instance as <code>$data</code>.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const app = Vue.createApp({
+  data() {
+    return { count: 4 }
+  }
+})
+
+const vm = app.mount('#app')
+
+console.log(vm.$data.count) // => 4
+console.log(vm.count)       // => 4
+
+// Assigning a value to vm.count will also update $data.count
+vm.count = 5
+console.log(vm.$data.count) // => 5
+
+// ... and vice-versa
+vm.$data.count = 6
+console.log(vm.count) // => 6
+        ]]>
+      </code>
+    </concept>
+    <concept name="methods">
+      <title value="Methods" />
+      <docLink value="https://v3.vuejs.org/guide/data-methods.html" />
+      <description>
+        <![CDATA[
+          To add methods to a component instance we use the <code>methods</code> option. 
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+const app = Vue.createApp({
+  data() {
+    return { count: 4 }
+  },
+  methods: {
+    increment() {
+      // `this` will refer to the component instance
+      this.count++
+    }
+  }
+})
+
+const vm = app.mount('#app')
+console.log(vm.count) // => 4
+
+vm.increment()
+console.log(vm.count) // => 5
+        ]]>
+      </code>
+    </concept>
+    <concept name="computed-properties">
+      <title value="Computed Properties" />
+      <docLink value="https://v3.vuejs.org/guide/computed.html" />
+      <description>
+        <![CDATA[
+          for complex logic that includes reactive data, you should use a computed property
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="computed-basics">
+  <p>Has published books:</p>
+  <span>{{ publishedBooksMessage }}</span>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      author: {
+        name: 'John Doe',
+        books: [
+          'Vue 2 - Advanced Guide',
+          'Vue 3 - Basic Guide',
+          'Vue 4 - The Mystery'
+        ]
+      }
+    }
+  },
+  computed: {
+    // a computed getter
+    publishedBooksMessage() {
+      // `this` points to the vm instance
+      return this.author.books.length > 0 ? 'Yes' : 'No'
+    }
+  }
+}).mount('#computed-basics')
+        ]]>
+      </code>
+    </concept>
+    <concept name="computed-setter">
+      <title value="Computed Setter" />
+      <docLink value="https://v3.vuejs.org/guide/computed.html" />
+      <description>
+        <![CDATA[
+          Computed properties are by default getter-only, but you can also provide a setter when you need it.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+// ...
+computed: {
+  fullName: {
+    // getter
+    get() {
+      return this.firstName + ' ' + this.lastName
+    },
+    // setter
+    set(newValue) {
+      const names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+}
+// ...
+
+// Now when you run vm.fullName = 'John Doe', the setter will be invoked and 
+// vm.firstName and vm.lastName will be updated accordingly.
+        ]]>
+      </code>
+    </concept>
+    <concept name="watchers">
+      <title value="Watchers" />
+      <docLink value="https://v3.vuejs.org/guide/computed.html" />
+      <description>
+        <![CDATA[
+          While computed properties are more appropriate in most cases, there are times when a custom watcher is necessary. 
+          That's why Vue provides a more generic way to react to data changes through the <code>watch</code> option. 
+          This is most useful when you want to perform asynchronous or expensive operations in response to changing data.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="watch-example">
+  <p>
+    Ask a yes/no question:
+    <input v-model="question" />
+  </p>
+  <p>{{ answer }}</p>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const watchExampleVM = Vue.createApp({
+  data() {
+    return {
+      question: '',
+      answer: 'Questions usually contain a question mark. ;-)'
+    }
+  },
+  watch: {
+    // whenever question changes, this function will run
+    question(newQuestion, oldQuestion) {
+      if (newQuestion.indexOf('?') > -1) {
+        this.getAnswer()
+      }
+    }
+  },
+  methods: {
+    getAnswer() {
+      this.answer = 'Thinking...'
+      axios
+        .get('https://yesno.wtf/api')
+        .then(response => {
+          this.answer = response.data.answer
+        })
+        .catch(error => {
+          this.answer = 'Error! Could not reach the API. ' + error
+        })
+    }
+  }
+}).mount('#watch-example')
+        ]]>
+      </code>
+    </concept>
+    <concept name="props-types">
+      <title value="Prop Types" />
+      <docLink value="https://v3.vuejs.org/guide/component-props.html" />
+      <description>
+        <![CDATA[
+          you'll want every prop to be a specific type of value. In these cases, you can list props as an object, where the properties' names and values contain the prop names and types, respectively
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="passing-props">
+      <title value="Passing Static or Dynamic Props" />
+      <docLink value="https://v3.vuejs.org/guide/component-props.html" />
+      <description>
+        <![CDATA[
+          Passing props to components
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<blog-post title="My journey with Vue"></blog-post>
+
+<!-- Dynamically assign the value of a variable -->
+<blog-post :title="post.title"></blog-post>
+
+<!-- Dynamically assign the value of a complex expression -->
+<blog-post :title="post.title + ' by ' + post.author.name"></blog-post>
+
+<!-- Even though `42` is static, we need v-bind to tell Vue that -->
+<!-- this is a JavaScript expression rather than a string.       -->
+<blog-post :likes="42"></blog-post>
+
+<!-- Dynamically assign to the value of a variable. -->
+<blog-post :likes="post.likes"></blog-post>
+
+<!-- Including the prop with no value will imply `true`. -->
+<blog-post is-published></blog-post>
+
+<!-- Even though `false` is static, we need v-bind to tell Vue that -->
+<!-- this is a JavaScript expression rather than a string.          -->
+<blog-post :is-published="false"></blog-post>
+
+<!-- Dynamically assign to the value of a variable. -->
+<blog-post :is-published="post.isPublished"></blog-post>
+
+<!-- Even though the array is static, we need v-bind to tell Vue that -->
+<!-- this is a JavaScript expression rather than a string.            -->
+<blog-post :comment-ids="[234, 266, 273]"></blog-post>
+
+<!-- Dynamically assign to the value of a variable. -->
+<blog-post :comment-ids="post.commentIds"></blog-post>
+
+<!-- Even though the object is static, we need v-bind to tell Vue that -->
+<!-- this is a JavaScript expression rather than a string.             -->
+<blog-post
+  :author="{
+    name: 'Veronica',
+    company: 'Veridian Dynamics'
+  }"
+></blog-post>
+
+<!-- Dynamically assign to the value of a variable. -->
+<blog-post :author="post.author"></blog-post>
+
+<!-- if post is an object... -->
+<blog-post v-bind="post"></blog-post>
+
+<!-- Will be equivalent to -->
+<blog-post v-bind:id="post.id" v-bind:title="post.title"></blog-post>
+        ]]>
+      </code>
+    </concept>
+    <concept name="prop-validation">
+      <title value="Prop Validation" />
+      <docLink value="https://v3.vuejs.org/guide/component-props.html" />
+      <description>
+        <![CDATA[
+          Components can specify requirements for their props, such as the types you've already seen. If a requirement isn't met
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+app.component('my-component', {
+  props: {
+    // Basic type check (`null` and `undefined` values will pass any type validation)
+    propA: Number,
+    // Multiple possible types
+    propB: [String, Number],
+    // Required string
+    propC: {
+      type: String,
+      required: true
+    },
+    // Number with a default value
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // Object with a default value
+    propE: {
+      type: Object,
+      // Object or array defaults must be returned from
+      // a factory function
+      default: function() {
+        return { message: 'hello' }
+      }
+    },
+    // Custom validator function
+    propF: {
+      validator: function(value) {
+        // The value must match one of these strings
+        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+      }
+    },
+    // Function with a default value
+    propG: {
+      type: Function,
+      // Unlike object or array default, this is not a factory function - this is a function to serve as a default value
+      default: function() {
+        return 'Default function'
+      }
+    }
+  }
+})
+        ]]>
+      </code>
+    </concept>
+    <concept name="lifecycle-hooks">
+      <title value="Lifecycle hooks" />
+      <docLink value="https://v3.vuejs.org/api/options-lifecycle-hooks.html" />
+      <description>
+        <![CDATA[
+          Each component instance goes through a series of initialization steps when it's created - for example, it needs to set up data observation, 
+          compile the template, mount the instance to the DOM, and update the DOM when data changes. Along the way, it also runs functions called lifecycle hooks, 
+          giving users the opportunity to add their own code at specific stages.
+
+          <ul>
+            <li>beforeCreate</li>
+            <li>created</li>
+            <li>beforeMount</li>
+            <li>mounted</li>
+            <li>beforeUpdate</li>
+            <li>updated</li>
+            <li>activated</li>
+            <li>deactivated</li>
+            <li>beforeUnmount</li>
+            <li>unmounted</li>
+            <li>errorCaptured</li>
+            <li>renderTracked</li>
+            <li>renderTriggered</li>
+          </ul>
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return { count: 1 }
+  },
+  created() {
+    // `this` points to the vm instance
+    console.log('count is: ' + this.count) // => "count is: 1"
+  }
+})
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+mounted() {
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been rendered
+  })
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+updated() {
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been re-rendered
+  })
+}
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const app = Vue.createApp({
+  data() {
+    return {
+      cart: 0
+    }
+  },
+  renderTracked({ key, target, type }) {
+    console.log({ key, target, type })
+    /* This will be logged when component is rendered for the first time:
+    {
+      key: "cart",
+      target: {
+        cart: 0
+      },
+      type: "get"
+    }
+    */
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1
+    }
+  }
+})
+
+app.mount('#app')
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const app = Vue.createApp({
+  data() {
+    return {
+      cart: 0
+    }
+  },
+  renderTriggered({ key, target, type }) {
+    console.log({ key, target, type })
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1
+      /* This will cause renderTriggered call
+        {
+          key: "cart",
+          target: {
+            cart: 1
+          },
+          type: "set"
+        }
+      */
+    }
+  }
+})
+
+app.mount('#app')
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

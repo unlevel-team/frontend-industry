@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="components">
+    <title value="Vue components" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The Vue components
+      ]]>
+    </description>
+    <concept name="base-example">
+      <title value="Base example" />
+      <docLink value="https://vuejs.org/v2/guide/components.html" />
+      <description>
+        <![CDATA[
+          Here’s an example of a Vue component:
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+// Define a new component called button-counter
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<div id="components-demo">
+  <button-counter></button-counter>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+new Vue({ el: '#components-demo' })
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

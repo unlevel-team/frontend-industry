@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="lists">
+    <title value="Vue list rendering" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        We can use the <code>v-for</code> directive to render a list of items based on an array or an obejct.
+      ]]>
+    </description>
+    <concept name="mapping-with-v-for">
+      <title value="Mapping an Array to Elements with v-for" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          We can use the <code>v-for</code> directive to render a list of items based on an array or an obejct. The <code>v-for</code> directive requires a special 
+          syntax in the form of <code>item in items</code>, where <code>items</code> is the source data array and <code>item</code> is an alias for the array element being iterated on.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<ul id="array-with-index">
+  <li v-for="(item, index) in items">
+    {{ parentMessage }} - {{ index }} - {{ item.message }}
+  </li>
+</ul>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      parentMessage: 'Parent',
+      items: [{ message: 'Foo' }, { message: 'Bar' }]
+    }
+  }
+}).mount('#array-with-index')
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- #v-for with an Object -->
+<ul id="v-for-object" class="demo">
+  <li v-for="value in myObject">
+    {{ value }}
+  </li>
+</ul>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      myObject: {
+        title: 'How to do lists in Vue',
+        author: 'Jane Doe',
+        publishedAt: '2016-04-10'
+      }
+    }
+  }
+}).mount('#v-for-object')
+        ]]>
+      </code>
+    </concept>
+    <concept name="maintaining-state">
+      <title value="Maintaining State" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          When Vue is updating a list of elements rendered with <code>v-for</code>, by default it uses an "in-place patch" strategy. 
+          If the order of the data items has changed, instead of moving the DOM elements to match the order of the items, 
+          Vue will patch each element in-place and make sure it reflects what should be rendered at that particular index. <br>
+          It is recommended to provide a key attribute with v-for whenever possible, unless the iterated DOM content is simple, 
+          or you are intentionally relying on the default behavior for performance gains.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div v-for="item in items" :key="item.id">
+  <!-- content -->
+</div>
+        ]]>
+      </code>
+    </concept>
+    <concept name="filtered-sorted">
+      <title value="Displaying Filtered/Sorted Results" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          Sometimes we want to display a filtered or sorted version of an array without actually mutating or resetting the original data. 
+          In this case, you can create a computed property that returns the filtered or sorted array.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<li v-for="n in evenNumbers">{{ n }}</li>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+data() {
+  return {
+    numbers: [ 1, 2, 3, 4, 5 ]
+  }
+},
+computed: {
+  evenNumbers() {
+    return this.numbers.filter(number => number % 2 === 0)
+  }
+}
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- In situations where computed properties are not feasible (e.g. inside nested v-for loops), you can use a method -->
+<ul v-for="numbers in sets">
+  <li v-for="n in even(numbers)">{{ n }}</li>
+</ul>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+data() {
+  return {
+    sets: [[ 1, 2, 3, 4, 5 ], [6, 7, 8, 9, 10]]
+  }
+},
+methods: {
+  even(numbers) {
+    return numbers.filter(number => number % 2 === 0)
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-for-in-a-Range">
+      <title value="v-for with a Range" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          <code>v-for</code> can also take an integer. In this case it will repeat the template that many times.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="range" class="demo">
+  <span v-for="n in 10">{{ n }} </span>
+</div>
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-for-template">
+      <title value="v-for on a &lt;template&gt;" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          Similar to template <code>v-if</code>, you can also use a <code>&lt;template&gt;</code> tag with <code>v-for</code> to render a block of multiple elements.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+</ul>
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-for-with-v-if">
+      <title value="v-for with v-if" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          When they exist on the same node, <code>v-if</code> has a higher priority than <code>v-for</code>. 
+          That means the <code>v-if</code> condition will not have access to variables from the scope of the <code>v-for</code>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- This will throw an error because property "todo" is not defined on instance. -->
+
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo }}
+</li>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<template v-for="todo in todos">
+  <li v-if="!todo.isComplete">
+    {{ todo }}
+  </li>
+</template>
+        ]]>
+      </code>
+    </concept>
+    <concept name="v-for-with-component">
+      <title value="v-for with a Component" />
+      <docLink value="https://v3.vuejs.org/guide/list.html" />
+      <description>
+        <![CDATA[
+          You can directly use <code>v-for</code> on a custom component, like any normal element. <br>
+          However, this won't automatically pass any data to the component, because components have isolated scopes of their own. 
+          In order to pass the iterated data into the component, we should also use props
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<my-component v-for="item in items" :key="item.id"></my-component>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<my-component
+  v-for="(item, index) in items"
+  :item="item"
+  :index="index"
+  :key="item.id"
+></my-component>
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<div id="todo-list-example">
+  <form v-on:submit.prevent="addNewTodo">
+    <label for="new-todo">Add a todo</label>
+    <input
+      v-model="newTodoText"
+      id="new-todo"
+      placeholder="E.g. Feed the cat"
+    />
+    <button>Add</button>
+  </form>
+  <ul>
+    <todo-item
+      v-for="(todo, index) in todos"
+      :key="todo.id"
+      :title="todo.title"
+      @remove="todos.splice(index, 1)"
+    ></todo-item>
+  </ul>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+const app = Vue.createApp({
+  data() {
+    return {
+      newTodoText: '',
+      todos: [
+        {
+          id: 1,
+          title: 'Do the dishes'
+        },
+        {
+          id: 2,
+          title: 'Take out the trash'
+        },
+        {
+          id: 3,
+          title: 'Mow the lawn'
+        }
+      ],
+      nextTodoId: 4
+    }
+  },
+  methods: {
+    addNewTodo() {
+      this.todos.push({
+        id: this.nextTodoId++,
+        title: this.newTodoText
+      })
+      this.newTodoText = ''
+    }
+  }
+})
+
+app.component('todo-item', {
+  template: `
+    <li>
+      {{ title }}
+      <button @click="$emit('remove')">Remove</button>
+    </li>
+  `,
+  props: ['title'],
+  emits: ['remove']
+})
+
+app.mount('#todo-list-example')
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

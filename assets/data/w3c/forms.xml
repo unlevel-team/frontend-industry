@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="forms">
+    <title value="HTML forms" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The HTML forms
+      ]]>
+    </description>
+    <concept name="html-forms">
+      <title value="HTML Forms" />
+      <docLink value="https://www.w3schools.com/html/html_forms.asp" />
+      <description>
+        <![CDATA[
+          An HTML form is used to collect user input. The user input is most often sent to a server for processing. <br>
+          The HTML <code>&lt;form&gt;</code> element is used to create an HTML form for user input. <br>
+          The <code>&lt;form&gt;</code> element is a container for different types of input elements, such as: text fields, checkboxes, radio buttons, submit buttons, etc.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<form action="/action_page.php" target="_blank" method="post" enctype="multipart/form-data" autocomplete="on" novalidate>
+.
+form elements
+.
+</form>
+        ]]>
+      </code>
+    </concept>
+    <concept name="html-form-elements">
+      <title value="HTML Form Elements" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The HTML <code>&lt;form&gt;</code> element can contain one or more of the following form elements
+          <ul>
+            <li>&lt;input&gt;</li>
+            <li>&lt;label&gt;</li>
+            <li>&lt;select&gt;</li>
+            <li>&lt;textarea&gt;</li>
+            <li>&lt;button&gt;</li>
+            <li>&lt;fieldset&gt;</li>
+            <li>&lt;legend&gt;</li>
+            <li>&lt;datalist&gt;</li>
+            <li>&lt;output&gt;</li>
+            <li>&lt;option&gt;</li>
+            <li>&lt;optgroup&gt;</li>
+          </ul>
+        ]]>
+      </description>
+    </concept>
+
+    <concept name="input-element">
+      <title value="The &lt;input&gt; Element" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          One of the most used form element is the <code>&lt;input&gt;</code> element. <br>
+          The <code>&lt;input&gt;</code> element can be displayed in several ways, depending on the type attribute.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- HTML Input Types -->        
+<input type="button">
+<input type="checkbox">
+<input type="color">
+<input type="date">
+<input type="datetime-local">
+<input type="email">
+<input type="file">
+<input type="hidden">
+<input type="image">
+<input type="month">
+<input type="number">
+<input type="password">
+<input type="radio">
+<input type="range">
+<input type="reset">
+<input type="search">
+<input type="submit">
+<input type="tel">
+<input type="text">
+<input type="time">
+<input type="url">
+<input type="week">
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<!-- Input Types Text, Password, Submit, Reset -->
+<form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname">
+  <input type="password" id="pwd" name="pwd">
+  <input type="submit" value="Submit">
+  <input type="reset">
+</form>
+<!-- Input type Radio -->
+<form>
+  <input type="radio" id="male" name="gender" value="male">
+  <label for="male">Male</label><br>
+  <input type="radio" id="female" name="gender" value="female">
+  <label for="female">Female</label><br>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Other</label>
+</form>
+<!-- Input type Checkbox -->
+<form>
+  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label for="vehicle1"> I have a bike</label><br>
+  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+  <label for="vehicle2"> I have a car</label><br>
+  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+  <label for="vehicle3"> I have a boat</label>
+</form>
+<!-- Input type Button -->
+<input type="button" onclick="alert('Hello World!')" value="Click Me!">
+<!-- Input type Color: is used for input fields that should contain a color -->
+<form>
+  <label for="favcolor">Select your favorite color:</label>
+  <input type="color" id="favcolor" name="favcolor">
+</form>
+<!-- Input type Date: is used for input fields that should contain a date -->
+<form>
+  <label for="datemax">Enter a date before 1980-01-01:</label>
+  <input type="date" id="datemax" name="datemax" max="1979-12-31"><br><br>
+  <label for="datemin">Enter a date after 2000-01-01:</label>
+  <input type="date" id="datemin" name="datemin" min="2000-01-02">
+</form>
+<!-- Input type Datetime-local: specifies a date and time input field, with no time zone -->
+<form>
+  <label for="birthdaytime">Birthday (date and time):</label>
+  <input type="datetime-local" id="birthdaytime" name="birthdaytime">
+</form>
+<!-- Input type Email: is used for input fields that should contain an e-mail address -->
+<form>
+  <label for="email">Enter your email:</label>
+  <input type="email" id="email" name="email">
+</form>
+<!-- Input type File: defines a file-select field and a "Browse" button for file uploads -->
+<form>
+  <label for="myfile">Select a file:</label>
+  <input type="file" id="myfile" name="myfile">
+</form>
+<!-- Input type Month: allows the user to select a month and year. -->
+<form>
+  <label for="bdaymonth">Birthday (month and year):</label>
+  <input type="month" id="bdaymonth" name="bdaymonth">
+</form>
+<!-- Input Type Number: defines a numeric input field -->
+<form>
+  <label for="quantity">Quantity (between 1 and 5):</label>
+  <input type="number" id="quantity" name="quantity" min="0" max="100" step="10" value="30">
+</form>
+<!-- Input Type Range: defines a control for entering a number whose exact value is not important -->
+<form>
+  <label for="vol">Volume (between 0 and 50):</label>
+  <input type="range" id="vol" name="vol" min="0" max="50">
+</form>
+<!-- Input Type Search: is used for search fields (a search field behaves like a regular text field). -->
+<form>
+  <label for="gsearch">Search Google:</label>
+  <input type="search" id="gsearch" name="gsearch">
+</form>
+<!-- Input Type Tel: is used for input fields that should contain a telephone number -->
+<form>
+  <label for="phone">Enter your phone number:</label>
+  <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+</form>
+<!-- Input Type Time: allows the user to select a time (no time zone). -->
+<form>
+  <label for="appt">Select a time:</label>
+  <input type="time" id="appt" name="appt">
+</form>
+<!-- Input Type Url: is used for input fields that should contain a URL address -->
+<form>
+  <label for="homepage">Add your homepage:</label>
+  <input type="url" id="homepage" name="homepage">
+</form>
+<!-- Input Type Week: allows the user to select a week and year -->
+<form>
+  <label for="week">Select a week:</label>
+  <input type="week" id="week" name="week">
+</form>
+        ]]>
+      </code>
+    </concept>
+    <concept name="label-element">
+      <title value="The &lt;label&gt; Element" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;label&gt;</code> element defines a label for several form elements. <br>
+          The <code>&lt;label&gt;</code> element is useful for screen-reader users, because the screen-reader will read out loud the label when the user focus on the input element. <br>
+          The <code>&lt;label&gt;</code> element also help users who have difficulty clicking on very small regions (such as radio buttons or checkboxes)
+          because when the user clicks the text within the <code>&lt;label&gt;</code> element, it toggles the radio button/checkbox. <br>
+          The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the <code>&lt;input&gt;</code> element to bind them together.
+        ]]>
+      </description>
+    </concept>
+    <concept name="select-element">
+      <title value="The &lt;select&gt; Element" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;select&gt;</code> element defines a drop-down list
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<label for="cars">Choose a car:</label>
+<select id="cars" name="cars" size="3" multiple>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="fiat">Fiat</option>
+  <option value="audi" selected>Audi</option>
+</select>
+        ]]>
+      </code>
+    </concept>
+    <concept name="textarea-element">
+      <title value="The &lt;textarea&gt; Element" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;textarea&gt;</code> element defines a multi-line input field (a text area)
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<textarea name="message" rows="10" cols="30" style="width:200px; height:600px;">
+The cat was playing in the garden.
+</textarea>
+        ]]>
+      </code>
+    </concept>
+    <concept name="fieldset-legend-element">
+      <title value="The &lt;fieldset&gt; and &lt;legend&gt; Elements" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;fieldset&gt;</code> element is used to group related data in a form. <br>
+          The <code>&lt;legend&gt;</code> element defines a caption for the <code>&lt;fieldset&gt;</code> element.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<form action="/action_page.php">
+  <fieldset>
+    <legend>Personalia:</legend>
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="Doe"><br><br>
+    <input type="submit" value="Submit">
+  </fieldset>
+</form>
+        ]]>
+      </code>
+    </concept>
+    <concept name="datalist-element">
+      <title value="The &lt;datalist&gt; Element" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;datalist&gt;</code> element specifies a list of pre-defined options for an <code>&lt;input&gt;</code> element. <br>
+          Users will see a drop-down list of the pre-defined options as they input data. <br>
+          The <code>list</code> attribute of the <code>&lt;input&gt;</code> element, must refer to the <code>id</code> attribute of the <code>&lt;datalist&gt;</code> element.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<form action="/action_page.php">
+  <input list="browsers">
+  <datalist id="browsers">
+    <option value="Internet Explorer">
+    <option value="Firefox">
+    <option value="Chrome">
+    <option value="Opera">
+    <option value="Safari">
+  </datalist>
+</form>
+        ]]>
+      </code>
+    </concept>
+    <concept name="output-element">
+      <title value="The &lt;output&gt; Element" />
+      <docLink value="https://www.w3schools.com/html/html_form_elements.asp" />
+      <description>
+        <![CDATA[
+          The <code>&lt;output&gt;</code> element represents the result of a calculation (like one performed by a script).
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<form action="/action_page.php"
+  oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+  0
+  <input type="range"  id="a" name="a" value="50">
+  100 +
+  <input type="number" id="b" name="b" value="50">
+  =
+  <output name="x" for="a b"></output>
+  <br><br>
+  <input type="submit">
+</form>
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

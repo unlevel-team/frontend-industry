@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="style">
+    <title value="Styling and CSS with React" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        React Styling and CSS
+      ]]>
+    </description>
+    <concept name="css-classes-components">
+      <title value="Add CSS classes to components" />
+      <docLink value="https://reactjs.org/docs/faq-styling.html#how-do-i-add-css-classes-to-components" />
+      <description>
+        <![CDATA[
+          Pass a string as the className prop. <br>
+          It is common for CSS classes to depend on the component props or state.
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+render() {
+  return <span className="menu navigation-menu">Menu</span>
+}
+        ]]>
+      </code>
+      <code language="jsx">
+        <![CDATA[
+render() {
+  let className = 'menu';
+  if (this.props.isActive) {
+    className += ' menu-active';
+  }
+  return <span className={className}>Menu</span>
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="inline-styles">
+      <title value="Iniline styles" />
+      <docLink value="https://reactjs.org/docs/dom-elements.html#style" />
+      <description>
+        <![CDATA[
+          The <code>style</code> attribute accepts a JavaScript object with camelCased properties rather than a CSS string. 
+          This is consistent with the DOM <code>style</code> JavaScript property, is more efficient, and prevents XSS security holes
+        ]]>
+      </description>
+      <code language="jsx">
+        <![CDATA[
+const divStyle = {
+  color: 'blue',
+  backgroundImage: 'url(' + imgUrl + ')',
+};
+
+function HelloWorldComponent() {
+  return <div style={divStyle}>Hello World!</div>;
+}
+        ]]>
+      </code>
+      <code language="jsx">
+        <![CDATA[
+const divStyle = {
+  WebkitTransition: 'all', // note the capital 'W' here
+  msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+};
+
+function ComponentWithTransition() {
+  return <div style={divStyle}>This should work cross-browser</div>;
+}
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

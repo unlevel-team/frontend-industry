@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="event-handling">
+    <title value="Vue Handling Events" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        Handling Events
+      ]]>
+    </description>
+    <concept name="listening-to-events">
+      <title value="Listening to Events" />
+      <docLink value="https://v3.vuejs.org/guide/events.html" />
+      <description>
+        <![CDATA[
+          We can use the <code>v-on</code> directive, which we typically shorten to the <code>@</code> symbol, to listen to DOM events and run some JavaScript when they're triggered.
+          The usage would be <code>v-on:click="methodName"</code> or with the shortcut, <code>@click="methodName"</code>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="basic-event">
+  <button @click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      counter: 0
+    }
+  }
+}).mount('#basic-event')
+        ]]>
+      </code>
+    </concept>
+    <concept name="method-event-handlers">
+      <title value="Method Event Handlers" />
+      <docLink value="https://v3.vuejs.org/guide/events.html" />
+      <description>
+        <![CDATA[
+          The logic for many event handlers will be more complex though, so keeping your JavaScript in the value of the <code>v-on</code> attribute isn't feasible. 
+          That's why <code>v-on</code> can also accept the name of a method you'd like to call.
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="event-with-method">
+  <!-- `greet` is the name of a method defined below -->
+  <button @click="greet">Greet</button>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  data() {
+    return {
+      name: 'Vue.js'
+    }
+  },
+  methods: {
+    greet(event) {
+      // `this` inside methods points to the current active instance
+      alert('Hello ' + this.name + '!')
+      // `event` is the native DOM event
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+}).mount('#event-with-method')
+        ]]>
+      </code>
+    </concept>
+    <concept name="methods-inline-handlers">
+      <title value="Methods in Inline Handlers" />
+      <docLink value="https://v3.vuejs.org/guide/events.html" />
+      <description>
+        <![CDATA[
+          Instead of binding directly to a method name, we can also use methods in an inline JavaScript statement. <br>
+          Sometimes we also need to access the original DOM event in an inline statement handler. You can pass it into a method using the special <code>$event</code> variable
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<div id="inline-handler">
+  <button @click="say('hi')">Say hi</button>
+  <button @click="say('what')">Say what</button>
+</div>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+Vue.createApp({
+  methods: {
+    say(message) {
+      alert(message)
+    }
+  }
+}).mount('#inline-handler')
+        ]]>
+      </code>
+      <code language="html">
+        <![CDATA[
+<button @click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// ...
+methods: {
+  warn(message, event) {
+    // now we have access to the native event
+    if (event) {
+      event.preventDefault()
+    }
+    alert(message)
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="multiple-event-handlers">
+      <title value="Multiple Event Handlers" />
+      <docLink value="https://v3.vuejs.org/guide/events.html" />
+      <description>
+        <![CDATA[
+          You can have multiple methods in an event handler separated by a comma operator
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- both one() and two() will execute on button click -->
+<button @click="one($event), two($event)">
+  Submit
+</button>
+        ]]>
+      </code>
+      <code language="javascript">
+        <![CDATA[
+// ...
+methods: {
+  one(event) {
+    // first handler logic...
+  },
+  two(event) {
+    // second handler logic...
+  }
+}
+        ]]>
+      </code>
+    </concept>
+    <concept name="event-modifiers">
+      <title value="Event Modifiers" />
+      <docLink value="https://v3.vuejs.org/guide/events.html" />
+      <description>
+        <![CDATA[
+          It is a very common need to call <code>event.preventDefault()</code> or <code>event.stopPropagation()</code> inside event handlers. Although we can do this easily inside methods, 
+          it would be better if the methods can be purely about data logic rather than having to deal with DOM event details. <br>
+          To address this problem, Vue provides event modifiers for <code>v-on</code>. Recall that modifiers are directive postfixes denoted by a dot.
+          <ul>
+            <li><code>.stop</code></li>
+            <li><code>.prevent</code></li>
+            <li><code>.capture</code></li>
+            <li><code>.self</code></li>
+            <li><code>.once</code></li>
+            <li><code>.passive</code></li>
+          </ul>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- the click event's propagation will be stopped -->
+<a @click.stop="doThis"></a>
+
+<!-- the submit event will no longer reload the page -->
+<form @submit.prevent="onSubmit"></form>
+
+<!-- modifiers can be chained -->
+<a @click.stop.prevent="doThat"></a>
+
+<!-- just the modifier -->
+<form @submit.prevent></form>
+
+<!-- use capture mode when adding the event listener -->
+<!-- i.e. an event targeting an inner element is handled here before being handled by that element -->
+<div @click.capture="doThis">...</div>
+
+<!-- only trigger handler if event.target is the element itself -->
+<!-- i.e. not from a child element -->
+<div @click.self="doThat">...</div>
+
+<!-- the click event will be triggered at most once -->
+<a @click.once="doThis"></a>
+
+<!-- the scroll event's default behavior (scrolling) will happen -->
+<!-- immediately, instead of waiting for `onScroll` to complete  -->
+<!-- in case it contains `event.preventDefault()`                -->
+<div @scroll.passive="onScroll">...</div>
+        ]]>
+      </code>
+    </concept>
+    <concept name="key-modifiers">
+      <title value="Key Modifiers" />
+      <docLink value="https://v3.vuejs.org/guide/events.html" />
+      <description>
+        <![CDATA[
+          When listening for keyboard events, we often need to check for specific keys. Vue allows adding key modifiers for <code>v-on</code> or <code>@</code> when listening for key events. <br>
+          You can directly use any valid key names exposed via <code>KeyboardEvent.key</code> (opens new window)as modifiers by converting them to kebab-case. <br>
+          <b>Key aliases</b>
+          <ul>
+            <li><code>.enter</code></li>
+            <li><code>.tab</code></li>
+            <li><code>.delete</code> (captures both "Delete" and "Backspace" keys)</li>
+            <li><code>.esc</code></li>
+            <li><code>.space</code></li>
+            <li><code>.up</code></li>
+            <li><code>.down</code></li>
+            <li><code>.left</code></li>
+            <li><code>.right</code></li>
+          </ul>
+          <b>System Modifier Keys</b><br>
+          You can use the following modifiers to trigger mouse or keyboard event listeners only when the corresponding modifier key is pressed
+          <ul>
+            <li><code>.ctrl</code></li>
+            <li><code>.alt</code></li>
+            <li><code>.shift</code></li>
+            <li><code>.meta</code></li>
+          </ul>
+          The <code>.exact</code> modifier allows control of the exact combination of system modifiers needed to trigger an event. <br>
+          <b>Mouse Button Modifiers</b>
+          <ul>
+            <li><code>.left</code></li>
+            <li><code>.right</code></li>
+            <li><code>.middle</code></li>
+          </ul>
+        ]]>
+      </description>
+      <code language="html">
+        <![CDATA[
+<!-- only call `vm.submit()` when the `key` is `Enter` -->
+<input @keyup.enter="submit" />
+
+<input @keyup.page-down="onPageDown" />
+
+<!-- Alt + Enter -->
+<input @keyup.alt.enter="clear" />
+
+<!-- Ctrl + Click -->
+<div @click.ctrl="doSomething">Do something</div>
+
+<!-- this will fire even if Alt or Shift is also pressed -->
+<button @click.ctrl="onClick">A</button>
+
+<!-- this will only fire when Ctrl and no other keys are pressed -->
+<button @click.ctrl.exact="onCtrlClick">A</button>
+
+<!-- this will only fire when no system modifiers are pressed -->
+<button @click.exact="onClick">A</button>
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>

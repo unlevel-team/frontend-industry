@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <topic name="event-handling">
+    <title value="HTML events" />
+    <!-- <docLink value="https://www.w3schools.com/tags/tag_title.asp" /> -->
+    <description>
+      <![CDATA[
+        The HTML events
+      ]]>
+    </description>
+    <concept name="html-dom-events">
+      <title value="HTML DOM Events" />
+      <docLink value="https://www.w3schools.com/jsref/dom_obj_event.asp" />
+      <description>
+        <![CDATA[
+          HTML DOM events allow JavaScript to register different event handlers on elements in an HTML document. <br>
+          Events are normally used in combination with functions, and the function will not be executed before the event occurs (such as when a user clicks a button).
+        ]]>
+      </description>
+    </concept>
+    <concept name="html-event-attributes">
+      <title value="HTML Event Attributes" />
+      <docLink value="https://www.w3schools.com/tags/ref_eventattributes.asp" />
+      <description>
+        <![CDATA[
+          HTML has the ability to let events trigger actions in a browser, like starting a JavaScript when a user clicks on an element.
+        ]]>
+      </description>
+    </concept>
+    <concept name="javascript-events">
+      <title value="JavaScript Events" />
+      <docLink value="https://www.w3schools.com/js/js_events.asp" />
+      <description>
+        <![CDATA[
+          HTML events are <code>"things"</code> that happen to HTML elements. <br>
+          When JavaScript is used in HTML pages, JavaScript can <code>"react"</code> on these events.
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+<button onclick="document.getElementById('demo').innerHTML = Date()">The time is?</button>
+<button onclick="this.innerHTML = Date()">The time is?</button>
+<button onclick="displayDate()">The time is?</button>
+        ]]>
+      </code>
+    </concept>
+    <concept name="javascript-dom-eventlistener">
+      <title value="JavaScript HTML DOM EventListener" />
+      <docLink value="https://www.w3schools.com/js/js_htmldom_eventlistener.asp" />
+      <description>
+        <![CDATA[
+The <code>addEventListener()</code> method attaches an event handler to the specified element. <br>
+The <code>addEventListener()</code> method attaches an event handler to an element without overwriting existing event handlers. <br>
+You can add many event handlers to one element. <br>
+You can add many event handlers of the same type to one element, i.e two "click" events. <br>
+You can add event listeners to any DOM object not only HTML elements. i.e the window object. <br>
+The <code>addEventListener()</code> method makes it easier to control how the event reacts to bubbling. <br>
+When using the <code>addEventListener()</code> method, the JavaScript is separated from the HTML markup, for better readability and allows you to add event listeners 
+even when you do not control the HTML markup. <br>
+You can easily remove an event listener by using the <code>removeEventListener()</code> method.<br>
+With the <code>addEventListener()</code> method you can specify the propagation type by using the <code>"useCapture"</code> parameter. (Bubbling or capture)
+        ]]>
+      </description>
+      <code language="javascript">
+        <![CDATA[
+element.addEventListener("click", function(){ alert("Hello World!"); });
+
+element.addEventListener("click", myFunction);
+
+function myFunction() {
+  alert ("Hello World!");
+}
+
+element.addEventListener("mouseover", myFunction);
+element.addEventListener("click", mySecondFunction);
+element.addEventListener("mouseout", myThirdFunction);
+
+document.getElementById("myP").addEventListener("click", myFunction, true);
+document.getElementById("myDiv").addEventListener("click", myFunction, true);
+
+element.removeEventListener("mousemove", myFunction);
+        ]]>
+      </code>
+    </concept>
+  </topic>
+</data>
