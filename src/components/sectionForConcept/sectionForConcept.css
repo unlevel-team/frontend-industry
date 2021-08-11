@@ -12,6 +12,8 @@ section.concept h2.title {
   letter-spacing: 0.11em;
 }
 
+/* Documentation link --------------------------------------------------------- */
+
 section.concept a.docLink {
   padding-left: 1em;
   padding-right: 1em;
@@ -19,12 +21,40 @@ section.concept a.docLink {
   background-color: var(--color-primary-foreground);
   color: var(--color-primary-background);
   text-decoration: none;
+  animation-name: animation-docLink-out;
+  animation-duration: 190ms;
+  animation-fill-mode: forwards;
 }
 
 section.concept a.docLink:hover {
-  background-color: var(--color-secondary-1-background);
-  color: var(--color-secondary-1-foreground);
+  animation-name: animation-docLink-in;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
 }
+
+@keyframes animation-docLink-in {  /* Animation for the docLink IN */
+  from {
+    background-color: var(--color-primary-foreground);
+    color: var(--color-primary-background);
+  }
+  to {
+    background-color: var(--color-secondary-1-background);
+    color: var(--color-secondary-1-foreground);
+  }
+}
+
+@keyframes animation-docLink-out {  /* Animation for the docLink OUT */
+  from {
+    background-color: var(--color-secondary-1-background);
+    color: var(--color-secondary-1-foreground);
+  }
+  to {
+    background-color: var(--color-primary-foreground);
+    color: var(--color-primary-background);
+  }
+}
+
+/* Description --------------------------------------------------------- */
 
 section.concept .description {
   padding-top: 0.7em;

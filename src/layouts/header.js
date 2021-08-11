@@ -69,7 +69,6 @@ const _HEADER = {
     `;
   },
 
-
   _renderModalCode: () => {
     return html`
     <!-- The Modal -->

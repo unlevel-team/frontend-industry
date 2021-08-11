@@ -12,7 +12,7 @@
 .pickerForConcept button {
   border: 0;
   border-radius: 0.25rem;
-  background: var(--color-secondary-1-foreground);
+  background-color: var(--color-secondary-1-foreground);
   color: var(--color-primary-background);
   font-family: orbitron;
   font-size: 1rem;
@@ -23,9 +23,35 @@
   padding: 0.25rem 0.5rem;
   margin: 0.25rem;
   cursor: pointer;
+  animation-name: animation-pickerForConcept-button-out;
+  animation-duration: 309ms;
+  animation-fill-mode: forwards;
 }
 
 .pickerForConcept button:hover {
-  background: var(--color-secondary-2-foreground);
-  color: var(--color-primary-detail-3);
+  animation-name: animation-pickerForConcept-button-in;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animation-pickerForConcept-button-in {  /* Animation for the button IN */
+  from {
+    background: var(--color-secondary-1-foreground);
+    color: var(--color-primary-background);
+  }
+  to {
+    background-color: var(--color-secondary-2-foreground);
+    color: var(--color-primary-detail-3);
+  }
+}
+
+@keyframes animation-pickerForConcept-button-out {  /* Animation for the button OUT */
+  from {
+    background-color: var(--color-secondary-2-foreground);
+    color: var(--color-primary-detail-3);
+  }
+  to {
+    background: var(--color-secondary-1-foreground);
+    color: var(--color-primary-background);
+  }
 }
