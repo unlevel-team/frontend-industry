@@ -4,9 +4,7 @@
 
 ## TODO
 
-### Add header buttons
-
-### Add modal at 'header'
+### Topic for Form validation
 
 ## References
 https://v3.vuejs.org/guide/template-syntax.html

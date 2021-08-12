@@ -42,6 +42,25 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  animation-name: animation-link-image-out;
+  animation-duration: 309ms;
+  animation-fill-mode: forwards;
+}
+
+.header .links .image:hover {
+  animation-name: animation-link-image-in;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animation-link-image-in {  /* Animation for the link image IN */
+  from {background-color: var(--color-secondary-1-foreground);}
+  to {background-color: var(--color-secondary-2-foreground);}
+}
+
+@keyframes animation-link-image-out {  /* Animation for the link image OUT */
+  from {background-color: var(--color-secondary-2-foreground);}
+  to {background-color: var(--color-secondary-1-foreground);}
 }
 
 .header .links .info-image {
