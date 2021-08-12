@@ -4,8 +4,6 @@
 
 ## TODO
 
-### Some animations
-
 ### Topic for Form validation
 
 ## References
