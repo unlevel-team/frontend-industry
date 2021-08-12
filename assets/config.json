@@ -108,7 +108,7 @@
     }
   },
   "router": {
-    "basePath": "/frontend-industry/",
+    "basePath": "/",
     "default": "/html-basics",
     "routes": {
       "html-basics": { "url": "/html-basics" },
