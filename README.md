@@ -1,4 +1,4 @@
-# Frontend insutry
+# Frontend industry
 
 ## Install dependencies
 
